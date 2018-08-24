@@ -7,8 +7,8 @@
     <ProjectGuid>{64CC3DCF-79FC-4774-9E94-75D745A438DA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ContractToolESI</RootNamespace>
-    <AssemblyName>ContractToolESI</AssemblyName>
+    <RootNamespace>NukeESI</RootNamespace>
+    <AssemblyName>NukeESI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
