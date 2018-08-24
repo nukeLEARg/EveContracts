@@ -25,6 +25,10 @@ namespace NukeESI
         public string type { get; set; }
         public string volume { get; set; }
 
+        public ContractCall()
+        {
+        }
+
         public void buildContract()
         {
 
