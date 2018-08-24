@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EveContractTool.Properties
+namespace NukeContracts.UI.Properties
 {
 
 

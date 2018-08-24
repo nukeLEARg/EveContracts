@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
 
-namespace EveContractTool
+namespace NukeESI
 {
     public class ESIClass
     {
         const string BaseURL = "https://esi.evetech.net/latest/";
+        public string header;
         public ESIClass()
         {
         }
@@ -17,9 +18,13 @@ namespace EveContractTool
         public T ExecuteESI<T>(RestRequest request) where T : new()
         {
             var client = new RestClient();
-            client.UserAgent = "EveContractTool-Nuke_Michael";
+            client.UserAgent = "EveContractTool-Nuke Michael";
             client.BaseUrl = new System.Uri(BaseURL);
             var response = client.Execute<T>(request);
+            foreach (var head in response.Headers)
+            {
+                header += head.Name + ": " + head.Value + " ";
+            }
             return response.Data;
         }
 
