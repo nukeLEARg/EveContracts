@@ -11,6 +11,7 @@ namespace NukeESI
     {
         const string BaseURL = "https://esi.evetech.net/latest/";
         public string header;
+
         public ESIClass()
         {
         }
@@ -35,6 +36,15 @@ namespace NukeESI
             contracts = ExecuteESI<List<ContractCall>>(request);
 
             return contracts;
+        }
+
+        public List<ContractContents> pullContract(int contract_id)
+        {
+            var request = new RestRequest($"contracts/public/items/{contract_id}/?datasource=tranquility&page=1");
+            List<ContractContents> contents = new List<ContractContents>();
+            contents = ExecuteESI<List<ContractContents>>(request);
+
+            return contents;
         }
     }
 }

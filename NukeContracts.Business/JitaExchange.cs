@@ -11,6 +11,7 @@ namespace NukeContracts.Business
     {
         public string header { get; set; }
         public string content { get; set; }
+        public List<Contract> Contracts { get; set; }
 
         public JitaExchange()
         {
@@ -24,8 +25,9 @@ namespace NukeContracts.Business
             for (int i = 0; i < 100; i++)
             {
                 if (call.ElementAt(i).type.Equals("item_exchange"))
+                    Contracts.Add(new Contract(call.ElementAt(i)));
                     content += call.ElementAt(i).ToString();
             }
-        }
+        }        
     }
 }

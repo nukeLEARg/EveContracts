@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContractCall.cs" />
+    <Compile Include="ContractContents.cs" />
     <Compile Include="ESIClass.cs" />
     <Compile Include="Header.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
