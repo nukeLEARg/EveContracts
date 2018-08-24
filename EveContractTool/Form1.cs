@@ -20,11 +20,13 @@ namespace EveContractTool
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var client = new RestClient();
-            client.BaseUrl = new System.Uri("https://esi.evetech.net/latest/");
-            var request = new RestRequest("contracts/public/10000002 /?datasource=tranquility&page=1");
-            var response = client.Execute<ContractCall>(request);
-            
+            ESIClass esi = new ESIClass();
+            List<ContractCall> call = esi.GetContracts("10000002");
+            for (int i = 0; i < 100; i++)
+            {
+                if(call.ElementAt(i).type.Equals("item_exchange"))
+                    testText.Text += call.ElementAt(i).ToString();
+            }
         }
     }
 }

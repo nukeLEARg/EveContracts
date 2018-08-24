@@ -35,29 +35,32 @@ namespace EveContractTool
             // testText
             // 
             this.testText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.testText.Location = new System.Drawing.Point(12, 12);
+            this.testText.Location = new System.Drawing.Point(6, 6);
+            this.testText.Margin = new System.Windows.Forms.Padding(2);
             this.testText.Multiline = true;
             this.testText.Name = "testText";
-            this.testText.Size = new System.Drawing.Size(1043, 500);
+            this.testText.Size = new System.Drawing.Size(1379, 579);
             this.testText.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(717, 518);
+            this.button1.Location = new System.Drawing.Point(11, 589);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(267, 51);
+            this.button1.Size = new System.Drawing.Size(134, 27);
             this.button1.TabIndex = 1;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 562);
+            this.ClientSize = new System.Drawing.Size(1396, 627);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.testText);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
