@@ -9,6 +9,7 @@ namespace NukeContracts.Business
 {
     public class JitaExchange
     {
+        //penis comment to prove master needs pull request setting...
         public string header { get; set; }
         public string content { get; set; }
         public List<Contract> Contracts { get; set; }
