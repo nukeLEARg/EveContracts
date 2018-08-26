@@ -18,9 +18,11 @@ namespace NukeESI
 
         public T ExecuteESI<T>(RestRequest request) where T : new()
         {
-            var client = new RestClient();
-            client.UserAgent = "EveContractTool-Nuke Michael";
-            client.BaseUrl = new System.Uri(BaseURL);
+            var client = new RestClient
+            {
+                UserAgent = "EveContractTool-Nuke Michael",
+                BaseUrl = new System.Uri(BaseURL)
+            };
             var response = client.Execute<T>(request);
             foreach (var head in response.Headers)
             {
