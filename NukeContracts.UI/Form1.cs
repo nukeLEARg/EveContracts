@@ -19,12 +19,9 @@ namespace NukeContracts.UI
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void tv_Main_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            JitaExchange test = new JitaExchange();
-            test.Pull();
-            textHeader.Text += test.header;
-            testText.Text += test.content;
+
         }
     }
 }

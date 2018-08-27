@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NukeContracts.Business;
 
 namespace NukeContracts.UI
 {
     public partial class ContractInfo : UserControl
     {
-        public ContractInfo()
+        public ContractInfo(Contract contract)
         {
             InitializeComponent();
         }
