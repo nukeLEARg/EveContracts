@@ -9,13 +9,13 @@ namespace NukeContracts.Business
 {
     public class JitaExchange
     {
-        //penis comment to prove master needs pull request setting...
         public string header { get; set; }
         public string content { get; set; }
-        public List<Contract> Contracts { get; set; }
+        public List<Contract> Contracts;
 
         public JitaExchange()
         {
+            this.Contracts = new List<Contract>();
         }
 
         public void Pull()
@@ -26,9 +26,12 @@ namespace NukeContracts.Business
             for (int i = 0; i < 100; i++)
             {
                 if (call.ElementAt(i).type.Equals("item_exchange"))
-                    Contracts.Add(new Contract(call.ElementAt(i)));
+                {
+                    Contract hold = new Contract(call.ElementAt(i));
+                    Contracts.Add(hold);
                     content += call.ElementAt(i).ToString();
+                }
             }
-        }        
+        }
     }
 }

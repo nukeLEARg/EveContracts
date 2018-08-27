@@ -30,13 +30,14 @@ namespace NukeContracts.UI
         {
             this.tv_MainView = new System.Windows.Forms.TreeView();
             this.pnl_InfoPane = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tv_MainView
             // 
             this.tv_MainView.Location = new System.Drawing.Point(12, 12);
             this.tv_MainView.Name = "tv_MainView";
-            this.tv_MainView.Size = new System.Drawing.Size(248, 603);
+            this.tv_MainView.Size = new System.Drawing.Size(248, 573);
             this.tv_MainView.TabIndex = 0;
             this.tv_MainView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tv_Main_AfterSelect);
             // 
@@ -47,11 +48,22 @@ namespace NukeContracts.UI
             this.pnl_InfoPane.Size = new System.Drawing.Size(1118, 603);
             this.pnl_InfoPane.TabIndex = 1;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(13, 592);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(247, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Load";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1396, 627);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.pnl_InfoPane);
             this.Controls.Add(this.tv_MainView);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -65,6 +77,7 @@ namespace NukeContracts.UI
 
         private System.Windows.Forms.TreeView tv_MainView;
         private System.Windows.Forms.Panel pnl_InfoPane;
+        private System.Windows.Forms.Button button1;
     }
 }
 

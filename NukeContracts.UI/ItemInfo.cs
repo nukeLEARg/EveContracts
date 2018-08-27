@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NukeESI;
 
 namespace NukeContracts.UI
 {
     public partial class ItemInfo : UserControl
     {
-        public ItemInfo()
+        public ItemInfo(ContractContents item)
         {
             InitializeComponent();
+            lb_item_id.Text = item.item_id.ToString();
+            lb_Quantity.Text = item.quantity.ToString();
         }
     }
 }

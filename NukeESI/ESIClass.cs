@@ -32,9 +32,9 @@ namespace NukeESI
         public List<ContractCall> GetContracts(string regionid)
         {
             var request = new RestRequest($"contracts/public/{regionid}/?datasource=tranquility&page=1");
-            List <ContractCall> contracts = new List<ContractCall>();
+            List<ContractCall> contracts = new List<ContractCall>();
             contracts = ExecuteESI<List<ContractCall>>(request);
-
+            
             return contracts;
         }
 
