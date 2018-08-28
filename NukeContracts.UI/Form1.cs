@@ -34,7 +34,7 @@ namespace NukeContracts.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            IDSearch itemSearch = new IDSearch();
+           // IDSearch itemSearch = new IDSearch();
             JitaExchange jita = new JitaExchange();
             jita.Pull();
             int x = 0;
@@ -45,7 +45,8 @@ namespace NukeContracts.UI
                     tv_MainView.Nodes.Add(new TreeNode(contract.info.contract_id.ToString()));
                     foreach(ContractContents item in contract.contents)
                     {
-                        tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.item_id));
+                        //tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.item_id));
+                        tv_MainView.Nodes[x].Nodes.Add(item.item_id.ToString());
                     }
                 }
                 else
@@ -53,7 +54,8 @@ namespace NukeContracts.UI
                     tv_MainView.Nodes.Add(new TreeNode(contract.info.title));
                     foreach (ContractContents item in contract.contents)
                     {
-                        tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.item_id));
+                        //tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.item_id));
+                        tv_MainView.Nodes[x].Nodes.Add(item.item_id.ToString());
                     }
                 }
                 x++;
