@@ -21,20 +21,42 @@ namespace NukeContracts.UI
 
         private void tv_Main_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            if (tv_MainView.SelectedNode.Parent == null)
+            {
+
+            }
+            else
+            {
+
+            }
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            IDSearch itemSearch = new IDSearch();
             JitaExchange jita = new JitaExchange();
             jita.Pull();
+            int x = 0;
             foreach(Contract contract in jita.Contracts)
             {
                 if (contract.info.title == "")
+                {
                     tv_MainView.Nodes.Add(new TreeNode(contract.info.contract_id.ToString()));
+                    foreach(ContractContents item in contract.contents)
+                    {
+                        tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.item_id));
+                    }
+                }
                 else
+                {
                     tv_MainView.Nodes.Add(new TreeNode(contract.info.title));
-
+                    foreach (ContractContents item in contract.contents)
+                    {
+                        tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.item_id));
+                    }
+                }
+                x++;
             }
         }
         
