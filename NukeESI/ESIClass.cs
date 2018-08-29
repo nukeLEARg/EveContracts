@@ -10,6 +10,7 @@ namespace NukeESI
     public class ESIClass
     {
         const string BaseURL = "https://esi.evetech.net/latest/";
+        public int XPages {get; set;}
 
         public ESIClass()
         {
@@ -21,6 +22,8 @@ namespace NukeESI
             client.UserAgent = "EveContractTool-Nuke Michael";
             client.BaseUrl = new System.Uri(BaseURL);
             var response = client.Execute<T>(request);
+            var header = response.Headers.SingleOrDefault(Parameter => Parameter.Name == "X-Pages");
+          //  XPages = (int)header.Value;
             return response.Data;
         }
 

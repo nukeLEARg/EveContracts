@@ -19,7 +19,7 @@ namespace NukeContracts.Business
         public void Pull()
         {
             NukeESI.ESIClass esi = new ESIClass();
-            List<ContractCall> call = esi.GetContracts("10000009");
+            List<ContractCall> call = esi.GetContracts("10000002");
             for (int i = 0; i < call.Count; i++)
             {
                 if (call.ElementAt(i).type.Equals("item_exchange"))
