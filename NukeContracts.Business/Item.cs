@@ -14,6 +14,8 @@ namespace NukeContracts.Business
         public Item(string id, string name)
         {
             int x;
+            id = id.Replace("\"","");
+            name = name.Replace("\"", "");
             bool parsed = Int32.TryParse(id, out x);
             type_id = x;
             item_name = name;

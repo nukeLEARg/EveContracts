@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using Microsoft.VisualBasic.FileIO;
+
 
 namespace NukeContracts.Business
 {
@@ -22,7 +24,10 @@ namespace NukeContracts.Business
         public string getName(int id)
         {
             var found = items.SingleOrDefault(Item => Item.type_id == id);
-            return found.item_name;
+            if (found != null)
+                return found.item_name;
+            else
+                return "name not found";
         }
 
 
@@ -30,22 +35,27 @@ namespace NukeContracts.Business
         {
             List<string> splitted = new List<string>();
             string fileList = GetCSV("https://www.fuzzwork.co.uk/resources/typeids.csv");
-            string[] tempStr;
 
-            tempStr = fileList.Split(',');
+            TextFieldParser parser = new TextFieldParser(new StringReader(fileList));
+            
+            parser.HasFieldsEnclosedInQuotes = true;
+            parser.SetDelimiters(",");
 
-            foreach (string item in tempStr)
+            while (!parser.EndOfData)
             {
-                if (!string.IsNullOrWhiteSpace(item))
+                try
                 {
-                    splitted.Add(item);
+                    string[] tempStr = parser.ReadFields();
+                    items.Add(new Item(tempStr[0], tempStr[1]));
                 }
-            }
+                catch(MalformedLineException e)
+                {
+                    items.Add(new Item("-1","ERROR"));
+                }
 
-            for(int i = 0; i<splitted.Count; i+=3)
-            {
-                items.Add(new Item(splitted[i],splitted[i+1]));
             }
+            //Item test = items[2937];
+            int x = 1;
         }
         
         private string GetCSV(string url)

@@ -18,24 +18,30 @@ namespace NukeContracts.UI
         {
             InitializeComponent();
         }
+        
+        private JitaExchange jita = new JitaExchange();
 
         private void tv_Main_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            pnl_InfoPane.Controls.Clear();
             if (tv_MainView.SelectedNode.Parent == null)
             {
-
+                var contract = jita.Contracts.SingleOrDefault(Contract => Contract.info.contract_id.ToString() == tv_MainView.SelectedNode.Tag.ToString());
+                pnl_InfoPane.Controls.Add(new ContractInfo(contract));
             }
             else
             {
-
+                var contract = jita.Contracts.SingleOrDefault(Contract => Contract.info.contract_id.ToString() == tv_MainView.SelectedNode.Parent.Tag.ToString());
+                int itemIndex = tv_MainView.SelectedNode.Index;
+                pnl_InfoPane.Controls.Add(new ItemInfo(contract.contents[itemIndex]));
             }
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-           // IDSearch itemSearch = new IDSearch();
-            JitaExchange jita = new JitaExchange();
+            IDSearch itemSearch = new IDSearch();
+            jita = new JitaExchange();
             jita.Pull();
             int x = 0;
             foreach(Contract contract in jita.Contracts)
@@ -43,19 +49,21 @@ namespace NukeContracts.UI
                 if (contract.info.title == "")
                 {
                     tv_MainView.Nodes.Add(new TreeNode(contract.info.contract_id.ToString()));
-                    foreach(ContractContents item in contract.contents)
+                    tv_MainView.Nodes[tv_MainView.Nodes.Count - 1].Tag = contract.info.contract_id;
+                    foreach (ContractContents item in contract.contents)
                     {
-                        //tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.type_id));
-                        tv_MainView.Nodes[x].Nodes.Add(item.item_id.ToString());
+                        tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.type_id));
+                        //tv_MainView.Nodes[x].Nodes.Add(item.item_id.ToString());
                     }
                 }
                 else
                 {
                     tv_MainView.Nodes.Add(new TreeNode(contract.info.title));
+                    tv_MainView.Nodes[tv_MainView.Nodes.Count - 1].Tag = contract.info.contract_id;
                     foreach (ContractContents item in contract.contents)
                     {
-                        //tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.type_id));
-                        tv_MainView.Nodes[x].Nodes.Add(item.item_id.ToString());
+                        tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.type_id));
+                        //tv_MainView.Nodes[x].Nodes.Add(item.item_id.ToString());
                     }
                 }
                 x++;
