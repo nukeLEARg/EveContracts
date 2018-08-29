@@ -19,9 +19,9 @@ namespace NukeContracts.Business
         }
 
 
-        public string getName(long id)
+        public string getName(int id)
         {
-            var found = items.SingleOrDefault(Item => Item.item_id == id);
+            var found = items.SingleOrDefault(Item => Item.type_id == id);
             return found.item_name;
         }
 

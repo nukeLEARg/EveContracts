@@ -45,7 +45,7 @@ namespace NukeContracts.UI
                     tv_MainView.Nodes.Add(new TreeNode(contract.info.contract_id.ToString()));
                     foreach(ContractContents item in contract.contents)
                     {
-                        //tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.item_id));
+                        //tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.type_id));
                         tv_MainView.Nodes[x].Nodes.Add(item.item_id.ToString());
                     }
                 }
@@ -54,7 +54,7 @@ namespace NukeContracts.UI
                     tv_MainView.Nodes.Add(new TreeNode(contract.info.title));
                     foreach (ContractContents item in contract.contents)
                     {
-                        //tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.item_id));
+                        //tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.type_id));
                         tv_MainView.Nodes[x].Nodes.Add(item.item_id.ToString());
                     }
                 }
