@@ -13,11 +13,16 @@ namespace NukeContracts.UI
 {
     public partial class ItemInfo : UserControl
     {
+        private ContractContents details;
+        
         public ItemInfo(ContractContents item)
         {
             InitializeComponent();
             lb_item_id.Text = item.type_id.ToString();
             lb_Quantity.Text = item.quantity.ToString();
+            details = item;
         }
+
+
     }
 }

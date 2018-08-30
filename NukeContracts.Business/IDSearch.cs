@@ -12,11 +12,11 @@ namespace NukeContracts.Business
 {
     public class IDSearch
     {
-        public List<Item> items { get; set; }
+        public List<ItemNames> items { get; set; }
 
         public IDSearch()
         {
-            items = new List<Item>();
+            items = new List<ItemNames>();
             buildItemList();
         }
 
@@ -46,15 +46,15 @@ namespace NukeContracts.Business
                 try
                 {
                     string[] tempStr = parser.ReadFields();
-                    items.Add(new Item(tempStr[0], tempStr[1]));
+                    items.Add(new ItemNames(tempStr[0], tempStr[1]));
                 }
                 catch(MalformedLineException e)
                 {
-                    items.Add(new Item("-1","ERROR"));
+                    items.Add(new ItemNames("-1","ERROR"));
                 }
 
             }
-            //Item test = items[2937];
+            //ItemNames test = items[2937];
             int x = 1;
         }
         
