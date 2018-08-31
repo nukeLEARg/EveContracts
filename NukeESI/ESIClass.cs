@@ -16,20 +16,21 @@ namespace NukeESI
         {
         }
 
-        public T ExecuteESI<T>(RestRequest request) where T : new()
+        public T ExecuteESI<T>(string requestString) where T : new()
         {
+            var request = new RestRequest(requestString + "&page=1");
             var client = new RestClient();
             client.UserAgent = "EveContractTool-Nuke Michael";
             client.BaseUrl = new System.Uri(BaseURL);
             var response = client.Execute<T>(request);
             var header = response.Headers.SingleOrDefault(Parameter => Parameter.Name == "X-Pages");
-          //  XPages = (int)header.Value;
+            XPages = (int)header.Value;
             return response.Data;
         }
 
         public List<ContractCall> GetContracts(string regionid)
         {
-            var request = new RestRequest($"contracts/public/{regionid}/?datasource=tranquility&page=1");
+            string request = $"contracts/public/{regionid}/?datasource=tranquility";
             List<ContractCall> contracts = new List<ContractCall>();
             contracts = ExecuteESI<List<ContractCall>>(request);
             
@@ -38,7 +39,7 @@ namespace NukeESI
 
         public List<ContractContents> pullContract(int contract_id)
         {
-            var request = new RestRequest($"contracts/public/items/{contract_id}/?datasource=tranquility&page=1");
+            string request = $"contracts/public/items/{contract_id}/?datasource=tranquility";
             List<ContractContents> contents = new List<ContractContents>();
             contents = ExecuteESI<List<ContractContents>>(request);
 
