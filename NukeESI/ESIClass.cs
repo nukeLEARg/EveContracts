@@ -24,7 +24,9 @@ namespace NukeESI
             client.BaseUrl = new System.Uri(BaseURL);
             var response = client.Execute<T>(request);
             var header = response.Headers.SingleOrDefault(Parameter => Parameter.Name == "X-Pages");
-            XPages = (int)header.Value;
+            int pages = 0;
+            Int32.TryParse(header.Value.ToString(), out pages);
+            XPages = pages;
             return response.Data;
         }
 
