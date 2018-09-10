@@ -14,13 +14,13 @@ namespace NukeESI
         public string date_expired { get; set; }
         public string date_issued { get; set; }
         public int days_to_complete { get; set; }
-        public int end_location_id { get; set; }
+        public long end_location_id { get; set; }
         public bool for_corporation { get; set; }
         public int issuer_corporation_id { get; set; }
         public int issuer_id { get; set; }
         public double price { get; set; }
         public double reward { get; set; }
-        public int start_location_id { get; set; }
+        public long start_location_id { get; set; }
         public string title { get; set; }
         public string type { get; set; }
         public double volume { get; set; }
@@ -28,13 +28,7 @@ namespace NukeESI
         public ContractCall()
         {
         }
-
-        public void buildContract()
-        {
-
-
-        }
-
+        
         public override string ToString()
         {
             return "buyout:" + buyout + " collateral:" + collateral + " contract_id:" + contract_id + " date_expired:" + date_expired + " date_issued:" + date_issued + " days_to_complete:" + 

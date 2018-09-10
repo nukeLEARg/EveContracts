@@ -9,26 +9,31 @@ namespace NukeContracts.Business
 {
     public class JitaExchange
     {
-        //penis comment to prove master needs pull request setting...
-        public string header { get; set; }
-        public string content { get; set; }
-        public List<Contract> Contracts { get; set; }
-
-        public JitaExchange()
+        public List<Contract> Contracts;
+        private int region;
+        public int pages = 0;
+        public int contracttotal = 0;
+        public JitaExchange(int region_id)
         {
+            this.Contracts = new List<Contract>();
+            region = region_id;
         }
 
         public void Pull()
         {
             NukeESI.ESIClass esi = new ESIClass();
-            List<ContractCall> call = esi.GetContracts("10000002");
-            header += esi.header;
-            for (int i = 0; i < 100; i++)
+            List<ContractCall> call = esi.GetContracts($"{region}");
+            pages = esi.XPages;
+            contracttotal = call.Count;
+            for (int i = 0; i < call.Count; i++)
             {
                 if (call.ElementAt(i).type.Equals("item_exchange"))
-                    Contracts.Add(new Contract(call.ElementAt(i)));
-                    content += call.ElementAt(i).ToString();
+                {
+                    Contract hold = new Contract(call.ElementAt(i));
+                    if(hold.contents != null)
+                        Contracts.Add(hold);
+                }
             }
-        }        
+        }
     }
 }
