@@ -18,9 +18,12 @@ namespace NukeContracts.UI
         {
             InitializeComponent();
             lb_ContractName.Text = contract.info.title;
+            lb_Type.Text = contract.info.type;
             lb_Price.Text = contract.info.price.ToString("00.00");
             lb_Volume.Text = contract.info.volume.ToString();
-            lb_date_issued.Text = contract.info.date_issued.ToString();
+            lb_date_issued.Text = contract.info.date_issued;
+            lb_Expires.Text = contract.info.date_expired;
+            lb_Location.Text = contract.info.start_location_id.ToString();
         }
     }
 }
