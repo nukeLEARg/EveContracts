@@ -9,7 +9,7 @@ namespace NukeESI
 {
     public class ESIClass
     {
-        const string BaseURL = "https://esi.evetech.net/latest/";
+        const string BaseURL = "https://esi.evetech.net/";
         public int XPages {get; set;}
 
         public ESIClass()
@@ -40,7 +40,7 @@ namespace NukeESI
         public List<ContractCall> GetContracts(string regionid)
         {
             XPages = 1;
-            string request = $"contracts/public/{regionid}/?datasource=tranquility";
+            string request = $"v1/contracts/public/{regionid}/?datasource=tranquility";
             List<ContractCall> contractsFinal = new List<ContractCall>();
             contractsFinal = ExecuteESI<List<ContractCall>>(request,1);
             for(int page = 2; page<=XPages; page++)
@@ -53,7 +53,7 @@ namespace NukeESI
 
         public List<ContractContents> pullContract(int contract_id)
         {
-            string request = $"contracts/public/items/{contract_id}/?datasource=tranquility";
+            string request = $"v1/contracts/public/items/{contract_id}/?datasource=tranquility";
             List<ContractContents> contents = new List<ContractContents>();
             contents = ExecuteESI<List<ContractContents>>(request,1);
 

@@ -65,7 +65,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 74);
+            this.label2.Location = new System.Drawing.Point(16, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 13);
             this.label2.TabIndex = 2;
@@ -74,7 +74,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 97);
+            this.label3.Location = new System.Drawing.Point(16, 90);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 3;
@@ -83,7 +83,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 120);
+            this.label4.Location = new System.Drawing.Point(16, 115);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 13);
             this.label4.TabIndex = 4;
@@ -92,7 +92,7 @@
             // lb_Price
             // 
             this.lb_Price.AutoSize = true;
-            this.lb_Price.Location = new System.Drawing.Point(57, 74);
+            this.lb_Price.Location = new System.Drawing.Point(57, 65);
             this.lb_Price.Name = "lb_Price";
             this.lb_Price.Size = new System.Drawing.Size(32, 13);
             this.lb_Price.TabIndex = 5;
@@ -101,7 +101,7 @@
             // lb_Volume
             // 
             this.lb_Volume.AutoSize = true;
-            this.lb_Volume.Location = new System.Drawing.Point(65, 97);
+            this.lb_Volume.Location = new System.Drawing.Point(65, 90);
             this.lb_Volume.Name = "lb_Volume";
             this.lb_Volume.Size = new System.Drawing.Size(32, 13);
             this.lb_Volume.TabIndex = 6;
@@ -110,7 +110,7 @@
             // lb_date_issued
             // 
             this.lb_date_issued.AutoSize = true;
-            this.lb_date_issued.Location = new System.Drawing.Point(64, 120);
+            this.lb_date_issued.Location = new System.Drawing.Point(64, 115);
             this.lb_date_issued.Name = "lb_date_issued";
             this.lb_date_issued.Size = new System.Drawing.Size(32, 13);
             this.lb_date_issued.TabIndex = 7;
@@ -137,7 +137,7 @@
             // lb_Expires
             // 
             this.lb_Expires.AutoSize = true;
-            this.lb_Expires.Location = new System.Drawing.Point(65, 143);
+            this.lb_Expires.Location = new System.Drawing.Point(65, 140);
             this.lb_Expires.Name = "lb_Expires";
             this.lb_Expires.Size = new System.Drawing.Size(32, 13);
             this.lb_Expires.TabIndex = 11;
@@ -146,7 +146,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(17, 143);
+            this.label7.Location = new System.Drawing.Point(17, 140);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(44, 13);
             this.label7.TabIndex = 10;
@@ -155,7 +155,7 @@
             // lb_Location
             // 
             this.lb_Location.AutoSize = true;
-            this.lb_Location.Location = new System.Drawing.Point(70, 169);
+            this.lb_Location.Location = new System.Drawing.Point(70, 165);
             this.lb_Location.Name = "lb_Location";
             this.lb_Location.Size = new System.Drawing.Size(32, 13);
             this.lb_Location.TabIndex = 13;
@@ -164,7 +164,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(17, 169);
+            this.label8.Location = new System.Drawing.Point(17, 165);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(51, 13);
             this.label8.TabIndex = 12;
