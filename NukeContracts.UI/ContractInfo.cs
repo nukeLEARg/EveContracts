@@ -15,6 +15,8 @@ namespace NukeContracts.UI
 {
     public partial class ContractInfo : UserControl
     {
+        public List<ItemPanel> itemDisplay;
+
         public ContractInfo(Contract contract)
         {
             CultureInfo isk = CultureInfo.CreateSpecificCulture("is-IS");

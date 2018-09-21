@@ -189,7 +189,7 @@
             this.Controls.Add(this.lb_ContractName);
             this.Controls.Add(this.label1);
             this.Name = "ContractInfo";
-            this.Size = new System.Drawing.Size(1118, 603);
+            this.Size = new System.Drawing.Size(1000, 500);
             this.ResumeLayout(false);
             this.PerformLayout();
 
