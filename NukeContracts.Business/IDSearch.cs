@@ -50,12 +50,10 @@ namespace NukeContracts.Business
                 }
                 catch(MalformedLineException e)
                 {
-                    items.Add(new ItemNames("-1","ERROR"));
+                    items.Add(new ItemNames("-1",e.Message));
                 }
 
             }
-            //ItemNames test = items[2937];
-            int x = 1;
         }
         
         private string GetCSV(string url)

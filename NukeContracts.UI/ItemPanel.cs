@@ -15,10 +15,15 @@ namespace NukeContracts.UI
 {
     public partial class ItemPanel : UserControl
     {
+        /*
+         * If the item images are not showing up please download the Types.zip from here: https://developers.eveonline.com/resource/resources
+         * And extract it to the build folder and rename it to Items
+         */
+
         public ItemPanel(ContractContents item, IDSearch search)
         {
             InitializeComponent();
-            lb_Amount.Text = item.quantity.ToString();
+            lb_Amount.Text = "x"+item.quantity.ToString();
             lb_ItemName.Text = search.getName(item.type_id);
             String path = $"Items\\{item.type_id}_64.png";
             if (File.Exists(path))

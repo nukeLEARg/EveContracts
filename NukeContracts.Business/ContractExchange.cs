@@ -7,15 +7,19 @@ using NukeESI;
 
 namespace NukeContracts.Business
 {
-    public class JitaExchange
+    public class ContractExchange
     {
-        public List<Contract> Contracts;
+        public List<Contract>[] Contracts;
         private int region;
         public int pages = 0;
         public int contracttotal = 0;
-        public JitaExchange(int region_id)
+        public ContractExchange(int region_id)
         {
-            this.Contracts = new List<Contract>();
+            Contracts = new List<Contract>[67];
+            for(int i = 0; i < 67; i++)
+            {
+                Contracts[i] = new List<Contract>();
+            }
             region = region_id;
         }
 
@@ -27,12 +31,9 @@ namespace NukeContracts.Business
             contracttotal = call.Count;
             for (int i = 0; i < call.Count; i++)
             {
-                if (call.ElementAt(i).type.Equals("item_exchange"))
-                {
-                    Contract hold = new Contract(call.ElementAt(i));
-                    if(hold.contents != null)
-                        Contracts.Add(hold);
-                }
+                Contract hold = new Contract(call.ElementAt(i));
+                if (hold.contents != null)
+                    Contracts[region - 10000000].Add(hold);
             }
         }
     }

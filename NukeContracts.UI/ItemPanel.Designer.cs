@@ -36,9 +36,11 @@
             // 
             // pb_Icon
             // 
+            this.pb_Icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pb_Icon.Location = new System.Drawing.Point(0, 0);
             this.pb_Icon.Name = "pb_Icon";
             this.pb_Icon.Size = new System.Drawing.Size(50, 50);
+            this.pb_Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pb_Icon.TabIndex = 0;
             this.pb_Icon.TabStop = false;
             // 

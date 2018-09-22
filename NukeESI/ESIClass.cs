@@ -30,10 +30,6 @@ namespace NukeESI
                 Int32.TryParse(header.Value.ToString(), out pages);
                 XPages = pages;
             }
-            else
-            {
-                string shitbroke = "shitbroke";
-            }
             return response.Data;
         }
 

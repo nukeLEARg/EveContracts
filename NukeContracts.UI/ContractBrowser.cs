@@ -14,42 +14,52 @@ namespace NukeContracts.UI
 {
     public partial class ContractBrowser : Form
     {
+        private ContractExchange exchange = new ContractExchange(0);
+        private IDSearch itemSearch;
+        private int region;
+
         public ContractBrowser()
         {
             InitializeComponent();
             dd_region.SelectedIndex = 0;
         }
-        
-        private JitaExchange jita = new JitaExchange(0);
 
         private void tv_Main_AfterSelect(object sender, TreeViewEventArgs e)
         {
             pnl_InfoPane.Controls.Clear();
             if (tv_MainView.SelectedNode.Parent == null)
             {
-                var contract = jita.Contracts.SingleOrDefault(Contract => Contract.info.contract_id.ToString() == tv_MainView.SelectedNode.Tag.ToString());
+                var contract = exchange.Contracts[region - 10000000].SingleOrDefault(Contract => Contract.info.contract_id.ToString() == tv_MainView.SelectedNode.Tag.ToString());
                 pnl_InfoPane.Controls.Add(new ContractInfo(contract));
             }
             else
             {
-                var contract = jita.Contracts.SingleOrDefault(Contract => Contract.info.contract_id.ToString() == tv_MainView.SelectedNode.Parent.Tag.ToString());
+                var contract = exchange.Contracts[region - 10000000].SingleOrDefault(Contract => Contract.info.contract_id.ToString() == tv_MainView.SelectedNode.Parent.Tag.ToString());
                 int itemIndex = tv_MainView.SelectedNode.Index;
-                pnl_InfoPane.Controls.Add(new ItemInfo(contract.contents[itemIndex]));
+                pnl_InfoPane.Controls.Add(new ItemPanel(contract.contents[itemIndex], itemSearch));
             }
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            tv_MainView.Nodes.Clear();
+            if(itemSearch == null)
+            {
+                itemSearch = new IDSearch();
+            }
             if (dd_region.SelectedIndex != 0)
             {
-                int region = 10000000 + dd_region.SelectedIndex;
-                IDSearch itemSearch = new IDSearch();
-                jita = new JitaExchange(region);
-                jita.Pull();
-                lb_Pages.Text = $"Pages: {jita.pages} Contracts: {jita.contracttotal}";
+                region = 10000000 + dd_region.SelectedIndex;
+                if (region > 10000023)
+                    region++;
+                if (region > 10000025)
+                    region++;
+                exchange = new ContractExchange(region);
+                exchange.Pull();
+                lb_Pages.Text = $"Pages: {exchange.pages} Contracts: {exchange.contracttotal}";
                 int x = 0;
-                foreach (Contract contract in jita.Contracts)
+                foreach (Contract contract in exchange.Contracts[region - 10000000])
                 {
                     if (contract.info.title == "")
                     {
