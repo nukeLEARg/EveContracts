@@ -21,6 +21,9 @@ namespace NukeContracts.UI
         public ContractBrowser()
         {
             InitializeComponent();
+            dd_region.DataSource = ContractExchange.regions;
+            dd_region.DisplayMember = "Name";
+            dd_region.ValueMember = "id";
             dd_region.SelectedIndex = 0;
         }
 
@@ -50,11 +53,7 @@ namespace NukeContracts.UI
             }
             if (dd_region.SelectedIndex != 0)
             {
-                region = 10000000 + dd_region.SelectedIndex;
-                if (region > 10000023)
-                    region++;
-                if (region > 10000025)
-                    region++;
+                region = Convert.ToInt32(dd_region.SelectedValue);
                 exchange = new ContractExchange(region);
                 exchange.Pull();
                 lb_Pages.Text = $"Pages: {exchange.pages} Contracts: {exchange.contracttotal}";
