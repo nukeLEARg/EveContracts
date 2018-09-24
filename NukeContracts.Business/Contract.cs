@@ -11,7 +11,9 @@ namespace NukeContracts.Business
     {
         public List<ContractContents> contents { get; set; }
         public ContractCall info { get; set; }
+        public ESIStructure station { get; set; }
         public int index { get; set; }
+
         public Contract(ContractCall call,int i)
         {
             info = call;
@@ -23,6 +25,13 @@ namespace NukeContracts.Business
             NukeESI.ESIClass esi = new ESIClass();
             List<ContractContents> contents = await esi.pullContract(call.contract_id).ConfigureAwait(false);
             this.contents = contents;
+        }
+
+        public async Task resolveStructure(ContractCall call)
+        {
+            NukeESI.ESIClass esi = new ESIClass();
+            ESIStructure stat = await esi.pullStructure(call.start_location_id).ConfigureAwait(false);
+            station = stat;
         }
     }
 }

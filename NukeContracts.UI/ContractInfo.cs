@@ -32,11 +32,15 @@ namespace NukeContracts.UI
             lb_ContractName.MaximumSize = new Size(150,0);
             lb_ContractName.Text = contract.info.title;
             lb_Type.Text = contract.info.type;
-            lb_Price.Text = contract.info.price.ToString("C2");
+            lb_Price.Text = $"{contract.info.price:#,##0.00} ISK";
             lb_Volume.Text = contract.info.volume.ToString();
             lb_date_issued.Text = contract.info.date_issued;
             lb_Expires.Text = contract.info.date_expired;
-            lb_Location.Text = contract.info.start_location_id.ToString();
+            lb_Location.MaximumSize = new Size(184, 0);
+            if (contract.station != null)
+                lb_Location.Text = contract.station.name;
+            else
+                lb_Location.Text = contract.info.start_location_id.ToString();
         }
 
         private void genNotLoaded()

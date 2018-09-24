@@ -32,10 +32,12 @@ namespace NukeContracts.Business
         public int pages = 0;
         public int contracttotal = 0;
         public List<Task>[] TaskList;
+        public List<Task> strucTaskList;
         public ContractExchange(int region_id)
         {
             Contracts = new List<Contract>[69];
             TaskList = new List<Task>[69];
+            strucTaskList = new List<Task>();
             for (int i = 0; i < 69; i++)
             {
                 Contracts[i] = new List<Contract>();
@@ -54,6 +56,8 @@ namespace NukeContracts.Business
             {
                 Contract hold = new Contract(call.ElementAt(i),i);
                 TaskList[region - 10000000].Add(hold.buildContract(call.ElementAt(i)));
+                TaskList[region - 10000000].Add(hold.resolveStructure(call.ElementAt(i)));
+                //strucTaskList.Add(hold.resolveStructure(call.ElementAt(i)));
                 Contracts[region - 10000000].Add(hold);
             }
             Task all = Task.WhenAll(TaskList[region - 10000000].ToArray());

@@ -10,7 +10,7 @@ namespace NukeESI
     public class ESIClass
     {
         const string BaseURL = "https://esi.evetech.net/";
-        public int XPages {get; set;}
+        public int XPages { get; set; }
 
         public ESIClass()
         {
@@ -50,7 +50,7 @@ namespace NukeESI
             string request = $"v1/contracts/public/{regionid}/?datasource=tranquility";
             List<ContractCall> contractsFinal = new List<ContractCall>();
             contractsFinal = ExecuteESI<List<ContractCall>>(request, 1);
-            for (int page = 2; page<=XPages; page++)
+            for (int page = 2; page <= XPages; page++)
             {
                 List<ContractCall> contracts = ExecuteESI<List<ContractCall>>(request, page);
                 contractsFinal.AddRange(contracts);
@@ -65,6 +65,15 @@ namespace NukeESI
             contents = await ExecuteESIAsync<List<ContractContents>>(request).ConfigureAwait(false);
 
             return contents;
+        }
+
+        public async Task<ESIStructure> pullStructure(long station_id)
+        {
+            string request = $"v2/universe/stations/{station_id}/?datasource=tranquility";
+            ESIStructure station = new ESIStructure();
+            station = await ExecuteESIAsync<ESIStructure>(request).ConfigureAwait(false);
+
+            return station;
         }
 
         public TypeCall pullTypeInfo(int type_id)
