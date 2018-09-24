@@ -19,10 +19,11 @@ namespace NukeContracts.UI
          * If the item images are not showing up please download the Types.zip from here: https://developers.eveonline.com/resource/resources
          * And extract it to the build folder and rename it to Items
          */
-
+        public ContractContents item; 
         public ItemPanel(ContractContents item, IDSearch search)
         {
             InitializeComponent();
+            this.item = item;
             genText(item, search);
         }
 

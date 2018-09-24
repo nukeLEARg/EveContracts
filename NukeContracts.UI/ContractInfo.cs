@@ -26,6 +26,7 @@ namespace NukeContracts.UI
 
         private void genText(Contract contract)
         {
+            lb_ContractName.MaximumSize = new Size(150,0);
             lb_ContractName.Text = contract.info.title;
             lb_Type.Text = contract.info.type;
             lb_Price.Text = contract.info.price.ToString("C2");
@@ -54,11 +55,33 @@ namespace NukeContracts.UI
                 panelToAdd.Left = left;
                 panelToAdd.Height = height;
                 panelToAdd.Width = width;
+                panelToAdd.Click += i_Click;
+                foreach(Control cont in panelToAdd.Controls)
+                {
+                    cont.Click += c_Click;
+                }
                 pnl_ItemWindow.Controls.Add(panelToAdd);
                 itemPanels.Add(panelToAdd);
                 top += height;
                 itemCount++;
             }
+        }
+        
+        void c_Click(object sender, EventArgs e)
+        {
+            Control cont = (Control)sender;
+            i_Click (cont.Parent,e);
+        }
+
+        void i_Click(object sender, EventArgs e)
+        {
+            foreach(ItemPanel otherPanel in itemPanels)
+            {
+                otherPanel.BackColor = SystemColors.Control;
+            }
+            ItemPanel item = (ItemPanel)sender;
+            item.BackColor = Color.CadetBlue;
+            pnl_ItemDetails.Controls.Add(new ItemDetails(item.item));
         }
     }
 }
