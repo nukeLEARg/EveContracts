@@ -42,6 +42,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lb_Location = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.pnl_ItemWindow = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // label1
@@ -170,10 +171,19 @@
             this.label8.TabIndex = 12;
             this.label8.Text = "Location:";
             // 
+            // pnl_ItemWindow
+            // 
+            this.pnl_ItemWindow.AutoScroll = true;
+            this.pnl_ItemWindow.Location = new System.Drawing.Point(575, 3);
+            this.pnl_ItemWindow.Name = "pnl_ItemWindow";
+            this.pnl_ItemWindow.Size = new System.Drawing.Size(422, 494);
+            this.pnl_ItemWindow.TabIndex = 15;
+            // 
             // ContractInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pnl_ItemWindow);
             this.Controls.Add(this.lb_Location);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.lb_Expires);
@@ -211,5 +221,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lb_Location;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Panel pnl_ItemWindow;
     }
 }

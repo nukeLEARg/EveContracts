@@ -23,7 +23,12 @@ namespace NukeContracts.UI
         public ItemPanel(ContractContents item, IDSearch search)
         {
             InitializeComponent();
-            lb_Amount.Text = "x"+item.quantity.ToString();
+            genText(item, search);
+        }
+
+        private void genText(ContractContents item, IDSearch search)
+        {
+            lb_Amount.Text = "x" + item.quantity.ToString();
             lb_ItemName.Text = search.getName(item.type_id);
             String path = $"Items\\{item.type_id}_64.png";
             if (File.Exists(path))

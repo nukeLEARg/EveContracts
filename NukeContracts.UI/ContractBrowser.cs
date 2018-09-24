@@ -33,7 +33,7 @@ namespace NukeContracts.UI
             if (tv_MainView.SelectedNode.Parent == null)
             {
                 var contract = exchange.Contracts[region - 10000000].SingleOrDefault(Contract => Contract.info.contract_id.ToString() == tv_MainView.SelectedNode.Tag.ToString());
-                pnl_InfoPane.Controls.Add(new ContractInfo(contract));
+                pnl_InfoPane.Controls.Add(new ContractInfo(contract, itemSearch));
             }
             else
             {
