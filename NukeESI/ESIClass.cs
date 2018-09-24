@@ -16,7 +16,7 @@ namespace NukeESI
         {
         }
 
-        public T ExecuteESI<T>(string requestString, int page) where T : new()
+        private T ExecuteESI<T>(string requestString, int page) where T : new()
         {
             var request = new RestRequest(requestString + $"&page={page}");
             var client = new RestClient();
@@ -30,6 +30,17 @@ namespace NukeESI
                 Int32.TryParse(header.Value.ToString(), out pages);
                 XPages = pages;
             }
+            return response.Data;
+        }
+
+        private async Task<T> ExecuteESIAsync<T>(string requestString) where T : new()
+        {
+            var request = new RestRequest(requestString + $"&page=1");
+            var client = new RestClient();
+            client.UserAgent = "EveContractTool-Nuke Michael";
+            client.BaseUrl = new System.Uri(BaseURL);
+            var response = await client.ExecuteTaskAsync<T>(request);
+
             return response.Data;
         }
 
@@ -47,11 +58,11 @@ namespace NukeESI
             return contractsFinal;
         }
 
-        public List<ContractContents> pullContract(int contract_id)
+        public async Task<List<ContractContents>> pullContract(int contract_id)
         {
             string request = $"v1/contracts/public/items/{contract_id}/?datasource=tranquility";
             List<ContractContents> contents = new List<ContractContents>();
-            contents = ExecuteESI<List<ContractContents>>(request,1);
+            contents = await ExecuteESIAsync<List<ContractContents>>(request);
 
             return contents;
         }

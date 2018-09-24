@@ -15,14 +15,14 @@ namespace NukeContracts.Business
         public Contract(ContractCall call)
         {
             info = call;
-            contents = buildContract(call);
+            buildContract(call);
         }
 
-        private List<ContractContents> buildContract(ContractCall call)
+        private async void buildContract(ContractCall call)
         {
             NukeESI.ESIClass esi = new ESIClass();
-            List<ContractContents> contents = esi.pullContract(call.contract_id);
-            return contents;
+            List<ContractContents> contents = await esi.pullContract(call.contract_id);
+            this.contents = contents;
         }
     }
 }

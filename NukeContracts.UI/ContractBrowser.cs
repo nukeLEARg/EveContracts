@@ -57,28 +57,18 @@ namespace NukeContracts.UI
                 exchange = new ContractExchange(region);
                 exchange.Pull();
                 lb_Pages.Text = $"Pages: {exchange.pages} Contracts: {exchange.contracttotal}";
-                int x = 0;
                 foreach (Contract contract in exchange.Contracts[region - 10000000])
                 {
                     if (contract.info.title == "")
                     {
                         tv_MainView.Nodes.Add(new TreeNode(contract.info.contract_id.ToString()));
                         tv_MainView.Nodes[tv_MainView.Nodes.Count - 1].Tag = contract.info.contract_id;
-                        foreach (ContractContents item in contract.contents)
-                        {
-                            tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.type_id));
-                        }
                     }
                     else
                     {
                         tv_MainView.Nodes.Add(new TreeNode(contract.info.title));
                         tv_MainView.Nodes[tv_MainView.Nodes.Count - 1].Tag = contract.info.contract_id;
-                        foreach (ContractContents item in contract.contents)
-                        {
-                            tv_MainView.Nodes[x].Nodes.Add(itemSearch.getName(item.type_id));
-                        }
                     }
-                    x++;
                 }
             }
         }
