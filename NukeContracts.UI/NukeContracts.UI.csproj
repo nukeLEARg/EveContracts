@@ -94,6 +94,12 @@
     <Compile Include="ItemPanel.Designer.cs">
       <DependentUpon>ItemPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="ItemWarning.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ItemWarning.Designer.cs">
+      <DependentUpon>ItemWarning.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ContractInfo.resx">
@@ -110,6 +116,9 @@
     <EmbeddedResource Include="ItemPanel.resx">
       <DependentUpon>ItemPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ItemWarning.resx">
+      <DependentUpon>ItemWarning.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -11,17 +11,17 @@ namespace NukeContracts.Business
     {
         public List<ContractContents> contents { get; set; }
         public ContractCall info { get; set; }
-        
-        public Contract(ContractCall call)
+        public int index { get; set; }
+        public Contract(ContractCall call,int i)
         {
             info = call;
-            buildContract(call);
+            index = i;
         }
 
-        private async void buildContract(ContractCall call)
+        public async Task buildContract(ContractCall call)
         {
             NukeESI.ESIClass esi = new ESIClass();
-            List<ContractContents> contents = await esi.pullContract(call.contract_id);
+            List<ContractContents> contents = await esi.pullContract(call.contract_id).ConfigureAwait(false);
             this.contents = contents;
         }
     }

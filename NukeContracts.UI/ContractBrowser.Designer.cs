@@ -33,6 +33,8 @@ namespace NukeContracts.UI
             this.button1 = new System.Windows.Forms.Button();
             this.dd_region = new System.Windows.Forms.ComboBox();
             this.lb_Pages = new System.Windows.Forms.Label();
+            this.pb_APIBar = new System.Windows.Forms.ProgressBar();
+            this.lb_progress = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tv_MainView
@@ -80,11 +82,30 @@ namespace NukeContracts.UI
             this.lb_Pages.TabIndex = 0;
             this.lb_Pages.Text = "Pages: ";
             // 
+            // pb_APIBar
+            // 
+            this.pb_APIBar.Location = new System.Drawing.Point(266, 519);
+            this.pb_APIBar.Name = "pb_APIBar";
+            this.pb_APIBar.Size = new System.Drawing.Size(996, 23);
+            this.pb_APIBar.TabIndex = 4;
+            // 
+            // lb_progress
+            // 
+            this.lb_progress.BackColor = System.Drawing.Color.Transparent;
+            this.lb_progress.Location = new System.Drawing.Point(266, 546);
+            this.lb_progress.Name = "lb_progress";
+            this.lb_progress.Size = new System.Drawing.Size(996, 12);
+            this.lb_progress.TabIndex = 5;
+            this.lb_progress.Text = "label1";
+            this.lb_progress.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // ContractBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1274, 576);
+            this.Controls.Add(this.lb_progress);
+            this.Controls.Add(this.pb_APIBar);
             this.Controls.Add(this.lb_Pages);
             this.Controls.Add(this.dd_region);
             this.Controls.Add(this.button1);
@@ -105,6 +126,8 @@ namespace NukeContracts.UI
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox dd_region;
         private System.Windows.Forms.Label lb_Pages;
+        private System.Windows.Forms.ProgressBar pb_APIBar;
+        private System.Windows.Forms.Label lb_progress;
     }
 }
 

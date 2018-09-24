@@ -31,12 +31,15 @@ namespace NukeContracts.Business
         private int region;
         public int pages = 0;
         public int contracttotal = 0;
+        public List<Task>[] TaskList;
         public ContractExchange(int region_id)
         {
             Contracts = new List<Contract>[69];
-            for(int i = 0; i < 69; i++)
+            TaskList = new List<Task>[69];
+            for (int i = 0; i < 69; i++)
             {
                 Contracts[i] = new List<Contract>();
+                TaskList[i] = new List<Task>();
             }
             region = region_id;
         }
@@ -49,10 +52,18 @@ namespace NukeContracts.Business
             contracttotal = call.Count;
             for (int i = 0; i < call.Count; i++)
             {
-                Contract hold = new Contract(call.ElementAt(i));
-                if (hold.contents != null)
-                    Contracts[region - 10000000].Add(hold);
+                Contract hold = new Contract(call.ElementAt(i),i);
+                TaskList[region - 10000000].Add(hold.buildContract(call.ElementAt(i)));
+                Contracts[region - 10000000].Add(hold);
             }
+            Task all = Task.WhenAll(TaskList[region - 10000000].ToArray());
+            taskTester(all);
+        }
+
+        private async void taskTester(Task testMe)
+        {
+            await testMe;
+            int shitDone = 1;
         }
     }
 }

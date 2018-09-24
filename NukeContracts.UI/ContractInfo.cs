@@ -17,11 +17,14 @@ namespace NukeContracts.UI
     {
         private List<ItemPanel> itemPanels = new List<ItemPanel>();
 
-        public ContractInfo(Contract contract,IDSearch itemSearch)
+        public ContractInfo(Contract contract,IDSearch itemSearch,Task itemCollecting)
         {
             InitializeComponent();
             genText(contract);
-            genItemPanels(contract, itemSearch);
+            if (itemCollecting.IsCompleted && contract.contents != null)
+                genItemPanels(contract, itemSearch);
+            else
+                genNotLoaded();
         }
 
         private void genText(Contract contract)
@@ -34,6 +37,12 @@ namespace NukeContracts.UI
             lb_date_issued.Text = contract.info.date_issued;
             lb_Expires.Text = contract.info.date_expired;
             lb_Location.Text = contract.info.start_location_id.ToString();
+        }
+
+        private void genNotLoaded()
+        {
+            ItemWarning panelToAdd = new ItemWarning();
+            pnl_ItemWindow.Controls.Add(panelToAdd);
         }
 
         private void genItemPanels(Contract contract, IDSearch itemSearch)
@@ -83,5 +92,6 @@ namespace NukeContracts.UI
             item.BackColor = Color.CadetBlue;
             pnl_ItemDetails.Controls.Add(new ItemDetails(item.item));
         }
+
     }
 }

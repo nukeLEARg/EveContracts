@@ -39,7 +39,7 @@ namespace NukeESI
             var client = new RestClient();
             client.UserAgent = "EveContractTool-Nuke Michael";
             client.BaseUrl = new System.Uri(BaseURL);
-            var response = await client.ExecuteTaskAsync<T>(request);
+            var response = await client.ExecuteTaskAsync<T>(request).ConfigureAwait(false);
 
             return response.Data;
         }
@@ -49,8 +49,8 @@ namespace NukeESI
             XPages = 1;
             string request = $"v1/contracts/public/{regionid}/?datasource=tranquility";
             List<ContractCall> contractsFinal = new List<ContractCall>();
-            contractsFinal = ExecuteESI<List<ContractCall>>(request,1);
-            for(int page = 2; page<=XPages; page++)
+            contractsFinal = ExecuteESI<List<ContractCall>>(request, 1);
+            for (int page = 2; page<=XPages; page++)
             {
                 List<ContractCall> contracts = ExecuteESI<List<ContractCall>>(request, page);
                 contractsFinal.AddRange(contracts);
@@ -62,7 +62,7 @@ namespace NukeESI
         {
             string request = $"v1/contracts/public/items/{contract_id}/?datasource=tranquility";
             List<ContractContents> contents = new List<ContractContents>();
-            contents = await ExecuteESIAsync<List<ContractContents>>(request);
+            contents = await ExecuteESIAsync<List<ContractContents>>(request).ConfigureAwait(false);
 
             return contents;
         }
