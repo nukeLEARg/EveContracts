@@ -17,6 +17,8 @@ namespace NukeContracts.UI
         public ItemDetails(ContractContents item)
         {
             InitializeComponent();
+            lb_itemID.Text = item.item_id.ToString();
+            lb_typeID.Text = item.type_id.ToString();
         }
     }
 }
