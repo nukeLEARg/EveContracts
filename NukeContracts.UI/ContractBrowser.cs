@@ -32,7 +32,7 @@ namespace NukeContracts.UI
             pnl_InfoPane.Controls.Clear();
             if (tv_MainView.SelectedNode.Parent == null)
             {
-                var contract = exchange.Contracts[region - 10000000].SingleOrDefault(Contract => Contract.info.contract_id.ToString() == tv_MainView.SelectedNode.Tag.ToString());
+                var contract = exchange.filteredContracts.SingleOrDefault(Contract => Contract.info.contract_id.ToString() == tv_MainView.SelectedNode.Tag.ToString());
                 pnl_InfoPane.Controls.Add(new ContractInfo(contract, itemSearch, exchange.TaskList[region - 10000000][contract.index]));
             }
         }
@@ -47,8 +47,8 @@ namespace NukeContracts.UI
             region = Convert.ToInt32(dd_region.SelectedValue);
             exchange = new ContractExchange(region);
             exchange.Pull();
-            lb_Pages.Text = $"Pages: {exchange.pages} Contracts: {exchange.contracttotal}";
-            foreach (Contract contract in exchange.Contracts[region - 10000000])
+            lb_Pages.Text = $"Pages: {exchange.pages} Contracts: {exchange.filteredContracts.Count}";
+            foreach (Contract contract in exchange.filteredContracts)
             {
                 if (contract.info.title == "")
                 {

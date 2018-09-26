@@ -9,6 +9,7 @@ namespace NukeContracts.Business
 {
     public class ContractExchange
     {
+        public int region { get; set; }
         public static readonly List<Object> regions = new List<Object> { new { Name = "Derelik", id = 10000001 }, new { Name = "The Forge", id = 10000002 },
             new { Name = "Vale of the Silent", id = 10000003 }, new { Name = "UUA-F4", id = 10000004 }, new { Name = "Detorid", id = 10000005 }, new { Name = "Wicked Creek", id = 10000006 },
             new { Name = "Cache", id = 10000007 }, new { Name = "Scalding Pass", id = 10000008 }, new { Name = "Insmother", id = 10000009 }, new { Name = "Tribute", id = 10000010 },
@@ -27,17 +28,15 @@ namespace NukeContracts.Business
             new { Name = "Tenerifis", id = 10000061 }, new { Name = "Omist", id = 10000062 }, new { Name = "Period Basis", id = 10000063 }, new { Name = "Essence", id = 10000064 },
             new { Name = "Kor-Azor", id = 10000065 }, new { Name = "Perrigen Falls", id = 10000066 }, new { Name = "Genesis", id = 10000067 }, new { Name = "Verge Vendor", id = 10000068 },
             new { Name = "Black Rise", id = 10000069 } };
-        public List<Contract>[] Contracts;
-        private int region;
+        private List<Contract>[] Contracts;
+        public List<Contract> filteredContracts;
         public int pages = 0;
-        public int contracttotal = 0;
         public List<Task>[] TaskList;
-        public List<Task> strucTaskList;
+
         public ContractExchange(int region_id)
         {
             Contracts = new List<Contract>[69];
             TaskList = new List<Task>[69];
-            strucTaskList = new List<Task>();
             for (int i = 0; i < 69; i++)
             {
                 Contracts[i] = new List<Contract>();
@@ -51,19 +50,16 @@ namespace NukeContracts.Business
             NukeESI.ESIClass esi = new ESIClass();
             List<ContractCall> call = esi.GetContracts($"{region}");
             pages = esi.XPages;
-            contracttotal = call.Count;
             for (int i = 0; i < call.Count; i++)
             {
                 Contract hold = new Contract(call.ElementAt(i),i);
                 TaskList[region - 10000000].Add(hold.buildContract(call.ElementAt(i)));
-                TaskList[region - 10000000].Add(hold.resolveStructure(call.ElementAt(i)));
-                //strucTaskList.Add(hold.resolveStructure(call.ElementAt(i)));
                 Contracts[region - 10000000].Add(hold);
             }
             Task all = Task.WhenAll(TaskList[region - 10000000].ToArray());
             taskTester(all);
         }
-
+        
         private async void taskTester(Task testMe)
         {
             await testMe;

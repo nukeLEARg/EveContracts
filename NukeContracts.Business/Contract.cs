@@ -13,6 +13,7 @@ namespace NukeContracts.Business
         public ContractCall info { get; set; }
         public ESIStructure station { get; set; }
         public List<TypeCall> typeInfo {get ; set;}
+        public List<Task> genTasks { get; set; }
         public int index { get; set; }
 
         public Contract(ContractCall call,int i)
@@ -26,17 +27,18 @@ namespace NukeContracts.Business
             NukeESI.ESIClass esi = new ESIClass();
             List<ContractContents> contents = await esi.pullContract(call.contract_id).ConfigureAwait(false);
             this.contents = contents;
-            typeGen(contents);
+            genTasks.Add(typeGen(contents));
+            genTasks.Add(resolveStructure(call));
         }
 
-        public async Task resolveStructure(ContractCall call)
+        private async Task resolveStructure(ContractCall call)
         {
             NukeESI.ESIClass esi = new ESIClass();
             ESIStructure stat = await esi.pullStructure(call.start_location_id).ConfigureAwait(false);
             station = stat;
         }
 
-        public async void typeGen(List<ContractContents> items)
+        private async Task typeGen(List<ContractContents> items)
         {
             ESIClass esi = new ESIClass();
             foreach(ContractContents item in items)

@@ -34,7 +34,7 @@ namespace NukeContracts.Business
         private void buildItemList()
         {
             List<string> splitted = new List<string>();
-            string fileList = GetCSV("https://www.fuzzwork.co.uk/resources/typeids.csv");
+            string fileList = GetCSV("typeids.csv");
 
             TextFieldParser parser = new TextFieldParser(new StringReader(fileList));
             
@@ -52,17 +52,12 @@ namespace NukeContracts.Business
                 {
                     items.Add(new ItemNames("-1",e.Message));
                 }
-
             }
         }
         
         private string GetCSV(string url)
         {
-            /* HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-             HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-             StreamReader sr = new StreamReader(resp.GetResponseStream());
-             */
-            StreamReader sr = new StreamReader("typeids.csv");
+            StreamReader sr = new StreamReader(url);
             string results = sr.ReadToEnd();
             sr.Close();
             
