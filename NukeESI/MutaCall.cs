@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NukeContracts.Business
+namespace NukeESI
 {
-    class Item
+    public class MutaCall
     {
     }
 }

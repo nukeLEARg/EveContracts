@@ -50,20 +50,19 @@ namespace NukeContracts.Business
                 }
                 catch(MalformedLineException e)
                 {
-                    items.Add(new ItemNames("-1","ERROR"));
+                    items.Add(new ItemNames("-1",e.Message));
                 }
 
             }
-            //ItemNames test = items[2937];
-            int x = 1;
         }
         
         private string GetCSV(string url)
         {
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-
-            StreamReader sr = new StreamReader(resp.GetResponseStream());
+            /* HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+             HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+             StreamReader sr = new StreamReader(resp.GetResponseStream());
+             */
+            StreamReader sr = new StreamReader("typeids.csv");
             string results = sr.ReadToEnd();
             sr.Close();
             

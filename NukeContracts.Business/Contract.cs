@@ -11,18 +11,36 @@ namespace NukeContracts.Business
     {
         public List<ContractContents> contents { get; set; }
         public ContractCall info { get; set; }
-        
-        public Contract(ContractCall call)
+        public ESIStructure station { get; set; }
+        public List<TypeCall> typeInfo {get ; set;}
+        public int index { get; set; }
+
+        public Contract(ContractCall call,int i)
         {
             info = call;
-            contents = buildContract(call);
+            index = i;
         }
 
-        private List<ContractContents> buildContract(ContractCall call)
+        public async Task buildContract(ContractCall call)
         {
             NukeESI.ESIClass esi = new ESIClass();
-            List<ContractContents> contents = esi.pullContract(call.contract_id);
-            return contents;
+            List<ContractContents> contents = await esi.pullContract(call.contract_id).ConfigureAwait(false);
+            this.contents = contents;
+            typeGen(contents);
+        }
+
+        public async Task resolveStructure(ContractCall call)
+        {
+            NukeESI.ESIClass esi = new ESIClass();
+            ESIStructure stat = await esi.pullStructure(call.start_location_id).ConfigureAwait(false);
+            station = stat;
+        }
+
+        public async void typeGen(List<ContractContents> items)
+        {
+            ESIClass esi = new ESIClass();
+            foreach(ContractContents item in items)
+                typeInfo.Add(await esi.pullTypeInfo(item.type_id));
         }
     }
 }

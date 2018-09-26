@@ -1,6 +1,6 @@
 namespace NukeContracts.UI
 {
-    partial class Form1
+    partial class ContractBrowser
     {
         /// <summary>
         /// Required designer variable.
@@ -33,13 +33,15 @@ namespace NukeContracts.UI
             this.button1 = new System.Windows.Forms.Button();
             this.dd_region = new System.Windows.Forms.ComboBox();
             this.lb_Pages = new System.Windows.Forms.Label();
+            this.pb_APIBar = new System.Windows.Forms.ProgressBar();
+            this.lb_progress = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tv_MainView
             // 
             this.tv_MainView.Location = new System.Drawing.Point(12, 12);
             this.tv_MainView.Name = "tv_MainView";
-            this.tv_MainView.Size = new System.Drawing.Size(248, 551);
+            this.tv_MainView.Size = new System.Drawing.Size(248, 500);
             this.tv_MainView.TabIndex = 0;
             this.tv_MainView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tv_Main_AfterSelect);
             // 
@@ -47,12 +49,12 @@ namespace NukeContracts.UI
             // 
             this.pnl_InfoPane.Location = new System.Drawing.Point(266, 12);
             this.pnl_InfoPane.Name = "pnl_InfoPane";
-            this.pnl_InfoPane.Size = new System.Drawing.Size(1118, 603);
+            this.pnl_InfoPane.Size = new System.Drawing.Size(1000, 500);
             this.pnl_InfoPane.TabIndex = 1;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 592);
+            this.button1.Location = new System.Drawing.Point(13, 545);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(133, 23);
             this.button1.TabIndex = 2;
@@ -65,74 +67,8 @@ namespace NukeContracts.UI
             this.dd_region.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dd_region.FormattingEnabled = true;
             this.dd_region.Items.AddRange(new object[] {
-            "Select Region",
-            "Derelik",
-            "The Forge",
-            "Vale of the Silent",
-            "UUA-F4",
-            "Detorid",
-            "Wicked Creek",
-            "Cache",
-            "Scalding Pass",
-            "Insmother",
-            "Tribute",
-            "Great Wildlands",
-            "Curse",
-            "Malpais",
-            "Catch",
-            "Venal",
-            "Lonetrek",
-            "J7HZ-F",
-            "The Spire",
-            "A821-A",
-            "Tash-Murkon",
-            "Outer Passage",
-            "Stain",
-            "Pure Blind",
-            "Immensea",
-            "Etherium Reach",
-            "Molden Heath",
-            "Geminate",
-            "Heimatar",
-            "Impass",
-            "Sinq Laison",
-            "The Citadel",
-            "The Kalevala Expanse",
-            "Deklein",
-            "Devoid",
-            "Everyshore",
-            "The Bleak Lands",
-            "Esoteria",
-            "Oasa",
-            "Syndicate",
-            "Metropolis",
-            "Domain",
-            "Solitude",
-            "Tenal",
-            "Fade",
-            "Providence",
-            "Placid",
-            "Khanid",
-            "Querious",
-            "Cloud Ring",
-            "Kador",
-            "Cobalt Edge",
-            "Aridia",
-            "Branch",
-            "Feythabolis",
-            "Outer Ring",
-            "Fountain",
-            "Paragon Soul",
-            "Delve",
-            "Tenerifis",
-            "Omist",
-            "Period Basis",
-            "Essence",
-            "Kor-Azor",
-            "Perrigen Falls",
-            "Genesis",
-            "Verge Vendor"});
-            this.dd_region.Location = new System.Drawing.Point(13, 565);
+            "Select Region"});
+            this.dd_region.Location = new System.Drawing.Point(13, 518);
             this.dd_region.Name = "dd_region";
             this.dd_region.Size = new System.Drawing.Size(247, 21);
             this.dd_region.TabIndex = 3;
@@ -140,25 +76,44 @@ namespace NukeContracts.UI
             // lb_Pages
             // 
             this.lb_Pages.AutoSize = true;
-            this.lb_Pages.Location = new System.Drawing.Point(152, 597);
+            this.lb_Pages.Location = new System.Drawing.Point(152, 550);
             this.lb_Pages.Name = "lb_Pages";
             this.lb_Pages.Size = new System.Drawing.Size(43, 13);
             this.lb_Pages.TabIndex = 0;
             this.lb_Pages.Text = "Pages: ";
             // 
-            // Form1
+            // pb_APIBar
+            // 
+            this.pb_APIBar.Location = new System.Drawing.Point(266, 519);
+            this.pb_APIBar.Name = "pb_APIBar";
+            this.pb_APIBar.Size = new System.Drawing.Size(996, 23);
+            this.pb_APIBar.TabIndex = 4;
+            // 
+            // lb_progress
+            // 
+            this.lb_progress.BackColor = System.Drawing.Color.Transparent;
+            this.lb_progress.Location = new System.Drawing.Point(266, 546);
+            this.lb_progress.Name = "lb_progress";
+            this.lb_progress.Size = new System.Drawing.Size(996, 12);
+            this.lb_progress.TabIndex = 5;
+            this.lb_progress.Text = "label1";
+            this.lb_progress.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // ContractBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1396, 627);
+            this.ClientSize = new System.Drawing.Size(1274, 576);
+            this.Controls.Add(this.lb_progress);
+            this.Controls.Add(this.pb_APIBar);
             this.Controls.Add(this.lb_Pages);
             this.Controls.Add(this.dd_region);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pnl_InfoPane);
             this.Controls.Add(this.tv_MainView);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "ContractBrowser";
+            this.Text = "Contract Browser";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -171,6 +126,8 @@ namespace NukeContracts.UI
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox dd_region;
         private System.Windows.Forms.Label lb_Pages;
+        private System.Windows.Forms.ProgressBar pb_APIBar;
+        private System.Windows.Forms.Label lb_progress;
     }
 }
 

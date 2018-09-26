@@ -11,18 +11,15 @@ using NukeESI;
 
 namespace NukeContracts.UI
 {
-    public partial class ItemInfo : UserControl
+    public partial class ItemDetails : UserControl
     {
-        private ContractContents details;
-        
-        public ItemInfo(ContractContents item)
+        public TypeCall typeInfo;
+
+        public ItemDetails(ContractContents item)
         {
             InitializeComponent();
-            lb_item_id.Text = item.type_id.ToString();
-            lb_Quantity.Text = item.quantity.ToString();
-            details = item;
+            lb_itemID.Text = item.item_id.ToString();
+            lb_typeID.Text = item.type_id.ToString();
         }
-
-
     }
 }
