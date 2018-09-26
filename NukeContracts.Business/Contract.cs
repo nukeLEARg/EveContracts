@@ -27,22 +27,25 @@ namespace NukeContracts.Business
             NukeESI.ESIClass esi = new ESIClass();
             List<ContractContents> contents = await esi.pullContract(call.contract_id).ConfigureAwait(false);
             this.contents = contents;
-            genTasks.Add(typeGen(contents));
-            genTasks.Add(resolveStructure(call));
+            resolveStructure(call);
+            //typeGen(contents);
         }
 
-        private async Task resolveStructure(ContractCall call)
+        private async void resolveStructure(ContractCall call)
         {
             NukeESI.ESIClass esi = new ESIClass();
             ESIStructure stat = await esi.pullStructure(call.start_location_id).ConfigureAwait(false);
             station = stat;
         }
 
-        private async Task typeGen(List<ContractContents> items)
+        private async void typeGen(List<ContractContents> items)
         {
-            ESIClass esi = new ESIClass();
-            foreach(ContractContents item in items)
-                typeInfo.Add(await esi.pullTypeInfo(item.type_id));
+            if (items != null)
+            {
+                ESIClass esi = new ESIClass();
+                foreach (ContractContents item in items)
+                    typeInfo.Add(await esi.pullTypeInfo(item.type_id));
+            }
         }
     }
 }

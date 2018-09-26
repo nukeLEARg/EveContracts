@@ -28,8 +28,8 @@ namespace NukeContracts.Business
             new { Name = "Tenerifis", id = 10000061 }, new { Name = "Omist", id = 10000062 }, new { Name = "Period Basis", id = 10000063 }, new { Name = "Essence", id = 10000064 },
             new { Name = "Kor-Azor", id = 10000065 }, new { Name = "Perrigen Falls", id = 10000066 }, new { Name = "Genesis", id = 10000067 }, new { Name = "Verge Vendor", id = 10000068 },
             new { Name = "Black Rise", id = 10000069 } };
-        private List<Contract>[] Contracts;
-        public List<Contract> filteredContracts;
+        public List<Contract>[] Contracts;
+        private List<Contract> filteredContracts;
         public int pages = 0;
         public List<Task>[] TaskList;
 
@@ -47,6 +47,7 @@ namespace NukeContracts.Business
 
         public void Pull()
         {
+            TaskList[region - 10000000].Clear();
             NukeESI.ESIClass esi = new ESIClass();
             List<ContractCall> call = esi.GetContracts($"{region}");
             pages = esi.XPages;
@@ -56,14 +57,6 @@ namespace NukeContracts.Business
                 TaskList[region - 10000000].Add(hold.buildContract(call.ElementAt(i)));
                 Contracts[region - 10000000].Add(hold);
             }
-            Task all = Task.WhenAll(TaskList[region - 10000000].ToArray());
-            taskTester(all);
-        }
-        
-        private async void taskTester(Task testMe)
-        {
-            await testMe;
-            int shitDone = 1;
         }
     }
 }

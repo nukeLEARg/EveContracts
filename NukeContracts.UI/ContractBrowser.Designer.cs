@@ -104,9 +104,9 @@ namespace NukeContracts.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1274, 576);
+            this.Controls.Add(this.lb_Pages);
             this.Controls.Add(this.lb_progress);
             this.Controls.Add(this.pb_APIBar);
-            this.Controls.Add(this.lb_Pages);
             this.Controls.Add(this.dd_region);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pnl_InfoPane);

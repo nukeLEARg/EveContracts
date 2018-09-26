@@ -51,11 +51,6 @@ namespace NukeContracts.UI
 
         private void genItemPanels(Contract contract, IDSearch itemSearch)
         {
-            /*ScrollBar vScrollBar1 = new VScrollBar();
-            vScrollBar1.Dock = DockStyle.Right;
-            vScrollBar1.Scroll += (sender, e) => { pnl_ItemWindow.VerticalScroll.Value = vScrollBar1.Value; };
-            pnl_ItemWindow.Controls.Add(vScrollBar1);
-            */
             int itemCount = 0;
             int top = 0;
             int left = 0;
@@ -96,6 +91,5 @@ namespace NukeContracts.UI
             item.BackColor = Color.CadetBlue;
             pnl_ItemDetails.Controls.Add(new ItemDetails(item.item));
         }
-
     }
 }
