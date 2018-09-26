@@ -12,6 +12,7 @@ namespace NukeContracts.Business
         public List<ContractContents> contents { get; set; }
         public ContractCall info { get; set; }
         public ESIStructure station { get; set; }
+        public TypeCall typeInfo;
         public int index { get; set; }
 
         public Contract(ContractCall call,int i)
@@ -32,6 +33,14 @@ namespace NukeContracts.Business
             NukeESI.ESIClass esi = new ESIClass();
             ESIStructure stat = await esi.pullStructure(call.start_location_id).ConfigureAwait(false);
             station = stat;
+        }
+
+        public async void typeGen(ContractContents item)
+        {
+            ESIClass esi = new ESIClass();
+            TypeCall type = await esi.pullTypeInfo(item.type_id);
+
+            lb_TYPE.Text = type.ToString();
         }
     }
 }

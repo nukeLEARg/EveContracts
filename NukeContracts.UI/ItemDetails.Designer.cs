@@ -32,6 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lb_itemID = new System.Windows.Forms.Label();
             this.lb_typeID = new System.Windows.Forms.Label();
+            this.lb_TYPE = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -70,10 +71,19 @@
             this.lb_typeID.TabIndex = 3;
             this.lb_typeID.Text = "xxx";
             // 
+            // lb_TYPE
+            // 
+            this.lb_TYPE.Location = new System.Drawing.Point(7, 65);
+            this.lb_TYPE.Name = "lb_TYPE";
+            this.lb_TYPE.Size = new System.Drawing.Size(304, 414);
+            this.lb_TYPE.TabIndex = 4;
+            this.lb_TYPE.Text = "label3";
+            // 
             // ItemDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lb_TYPE);
             this.Controls.Add(this.lb_typeID);
             this.Controls.Add(this.lb_itemID);
             this.Controls.Add(this.label2);
@@ -91,5 +101,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lb_itemID;
         private System.Windows.Forms.Label lb_typeID;
+        private System.Windows.Forms.Label lb_TYPE;
     }
 }

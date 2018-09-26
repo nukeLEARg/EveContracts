@@ -10,8 +10,8 @@ namespace NukeESI
     {
         public float capacity { get; set; }
         public string description { get; set; }
-        public int dogma_attributes { get; set; } // #Change type
-        public int dogma_effects { get; set; } // #Change type
+        public List<dogma.Attributes> dogma_attributes { get; set; }
+        public List<dogma.Effects> dogma_effects { get; set; }
         public int graphic_id { get; set; }
         public int group_id { get; set; }
         public int icon_id { get; set; }
@@ -27,6 +27,21 @@ namespace NukeESI
 
         public TypeCall()
         {
+        }
+
+        public override string ToString()
+        {
+            String attributes = "";
+            String effects = "";
+            foreach (dogma.Attributes att in dogma_attributes)
+            {
+                attributes += att.ToString();
+            }
+            foreach (dogma.Effects eff in dogma_effects)
+            {
+                effects += eff.ToString();
+            }
+            return $" name: {name} description: {description} capacity: {capacity} dogmaAttributes: {attributes} dogmaEffects {effects}";
         }
     }
 }

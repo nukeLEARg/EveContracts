@@ -49,6 +49,7 @@
     <Compile Include="ESIClass.cs" />
     <Compile Include="ESIStructure.cs" />
     <Compile Include="Header.cs" />
+    <Compile Include="MutaCall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeCall.cs" />
   </ItemGroup>

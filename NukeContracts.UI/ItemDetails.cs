@@ -14,6 +14,7 @@ namespace NukeContracts.UI
     public partial class ItemDetails : UserControl
     {
         public TypeCall typeInfo;
+
         public ItemDetails(ContractContents item)
         {
             InitializeComponent();

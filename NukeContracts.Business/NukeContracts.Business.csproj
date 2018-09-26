@@ -46,6 +46,7 @@
     <Compile Include="IDSearch.cs" />
     <Compile Include="ItemNames.cs" />
     <Compile Include="ContractExchange.cs" />
+    <Compile Include="MutaItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

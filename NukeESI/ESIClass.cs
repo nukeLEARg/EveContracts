@@ -24,12 +24,12 @@ namespace NukeESI
             client.BaseUrl = new System.Uri(BaseURL);
             var response = client.Execute<T>(request);
             var header = response.Headers.SingleOrDefault(Parameter => Parameter.Name == "X-Pages");
-            if (header != null)
+   /*       if (header != null)
             {
                 int pages = 0;
                 Int32.TryParse(header.Value.ToString(), out pages);
                 XPages = pages;
-            }
+            }*/
             return response.Data;
         }
 
@@ -76,13 +76,14 @@ namespace NukeESI
             return station;
         }
 
-        public TypeCall pullTypeInfo(int type_id)
+        public async Task<TypeCall> pullTypeInfo(int type_id)
         {
             string request = $"/v3/universe/types/{type_id}/?datasource=tranquility";
             TypeCall typeInfo = new TypeCall();
-            typeInfo = ExecuteESI<TypeCall>(request, 1);
+            typeInfo = await ExecuteESIAsync<TypeCall>(request);
 
             return typeInfo;
         }
+        
     }
 }
