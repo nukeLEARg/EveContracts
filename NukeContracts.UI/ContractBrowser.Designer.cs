@@ -96,7 +96,7 @@ namespace NukeContracts.UI
             this.lb_progress.Name = "lb_progress";
             this.lb_progress.Size = new System.Drawing.Size(996, 12);
             this.lb_progress.TabIndex = 5;
-            this.lb_progress.Text = "label1";
+            this.lb_progress.Text = "0/0";
             this.lb_progress.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // ContractBrowser

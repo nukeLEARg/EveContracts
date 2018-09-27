@@ -12,8 +12,7 @@ namespace NukeContracts.Business
         public List<ContractContents> contents { get; set; }
         public ContractCall info { get; set; }
         public ESIStructure station { get; set; }
-        public List<TypeCall> typeInfo {get ; set;}
-        public List<Task> genTasks { get; set; }
+        public List<TypeCall> typeInfo = new List<TypeCall>();
         public int index { get; set; }
 
         public Contract(ContractCall call,int i)
@@ -22,29 +21,38 @@ namespace NukeContracts.Business
             index = i;
         }
 
-        public async Task buildContract(ContractCall call)
+        public async void buildContract()
+        {
+            await resolveContents(info);
+            await resolveStructure(info);
+        }
+        
+
+        private async Task resolveContents(ContractCall call)
         {
             NukeESI.ESIClass esi = new ESIClass();
             List<ContractContents> contents = await esi.pullContract(call.contract_id).ConfigureAwait(false);
             this.contents = contents;
-            resolveStructure(call);
-            //typeGen(contents);
+            resolveTypes(contents);
         }
 
-        private async void resolveStructure(ContractCall call)
+        private async Task resolveStructure(ContractCall call)
         {
             NukeESI.ESIClass esi = new ESIClass();
             ESIStructure stat = await esi.pullStructure(call.start_location_id).ConfigureAwait(false);
             station = stat;
         }
 
-        private async void typeGen(List<ContractContents> items)
+        private void resolveTypes(List<ContractContents> items)
         {
             if (items != null)
             {
                 ESIClass esi = new ESIClass();
                 foreach (ContractContents item in items)
-                    typeInfo.Add(await esi.pullTypeInfo(item.type_id));
+                {
+                    TypeCall info = esi.pullTypeInfo(item.type_id);
+                    typeInfo.Add(info);
+                }
             }
         }
     }

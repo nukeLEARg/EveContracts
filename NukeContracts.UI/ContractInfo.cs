@@ -17,11 +17,11 @@ namespace NukeContracts.UI
     {
         private List<ItemPanel> itemPanels = new List<ItemPanel>();
 
-        public ContractInfo(Contract contract,IDSearch itemSearch,Task itemCollecting)
+        public ContractInfo(Contract contract,IDSearch itemSearch)
         {
             InitializeComponent();
             genText(contract);
-            if (itemCollecting.IsCompleted && contract.contents != null)
+            if (contract.contents != null)
                 genItemPanels(contract, itemSearch);
             else
                 genNotLoaded();
@@ -37,7 +37,7 @@ namespace NukeContracts.UI
             lb_date_issued.Text = contract.info.date_issued;
             lb_Expires.Text = contract.info.date_expired;
             lb_Location.MaximumSize = new Size(184, 0);
-            if (contract.station != null)
+            if (contract.station != null && contract.station.name != null)
                 lb_Location.Text = contract.station.name;
             else
                 lb_Location.Text = contract.info.start_location_id.ToString();

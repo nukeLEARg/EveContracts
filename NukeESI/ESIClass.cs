@@ -76,11 +76,11 @@ namespace NukeESI
             return station;
         }
 
-        public async Task<TypeCall> pullTypeInfo(int type_id)
+        public TypeCall pullTypeInfo(int type_id)
         {
             string request = $"/v3/universe/types/{type_id}/?datasource=tranquility";
             TypeCall typeInfo = new TypeCall();
-            typeInfo = await ExecuteESIAsync<TypeCall>(request);
+            typeInfo = ExecuteESI<TypeCall>(request,1);
 
             return typeInfo;
         }
