@@ -9,7 +9,6 @@ namespace NukeContracts.Business
 {
     public class ContractExchange
     {
-        public int region { get; set; }
         public static readonly List<Object> regions = new List<Object> { new { Name = "Derelik", id = 10000001 }, new { Name = "The Forge", id = 10000002 },
             new { Name = "Vale of the Silent", id = 10000003 }, new { Name = "UUA-F4", id = 10000004 }, new { Name = "Detorid", id = 10000005 }, new { Name = "Wicked Creek", id = 10000006 },
             new { Name = "Cache", id = 10000007 }, new { Name = "Scalding Pass", id = 10000008 }, new { Name = "Insmother", id = 10000009 }, new { Name = "Tribute", id = 10000010 },
@@ -29,24 +28,22 @@ namespace NukeContracts.Business
             new { Name = "Kor-Azor", id = 10000065 }, new { Name = "Perrigen Falls", id = 10000066 }, new { Name = "Genesis", id = 10000067 }, new { Name = "Verge Vendor", id = 10000068 },
             new { Name = "Black Rise", id = 10000069 } };
         private List<Contract>[] Contracts;
-        public List<Contract> filteredContracts;
-        public int pages = 0;
+        public int region { get; set; }
+        public List<Contract> filteredContracts { get; set; }
 
-        public ContractExchange(int region_id)
+        public ContractExchange()
         {
             Contracts = new List<Contract>[69];
             for (int i = 0; i < 69; i++)
             {
                 Contracts[i] = new List<Contract>();
             }
-            region = region_id;
         }
 
         public void Pull()
         {
             NukeESI.ESIClass esi = new ESIClass();
             List<ContractCall> call = esi.GetContracts($"{region}");
-            pages = esi.XPages;
             for (int i = 0; i < call.Count; i++)
             {
                 Contract hold = new Contract(call.ElementAt(i),i);

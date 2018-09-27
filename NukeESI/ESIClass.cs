@@ -10,7 +10,7 @@ namespace NukeESI
     public class ESIClass
     {
         const string BaseURL = "https://esi.evetech.net/";
-        public int XPages { get; set; }
+        private int XPages;
 
         public ESIClass()
         {

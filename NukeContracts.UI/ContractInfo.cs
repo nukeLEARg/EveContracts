@@ -16,18 +16,20 @@ namespace NukeContracts.UI
     public partial class ContractInfo : UserControl
     {
         private List<ItemPanel> itemPanels = new List<ItemPanel>();
+        private Contract contract;
 
-        public ContractInfo(Contract contract,IDSearch itemSearch)
+        public ContractInfo(Contract contract)
         {
             InitializeComponent();
-            genText(contract);
+            this.contract = contract;
+            genText();
             if (contract.contents != null)
-                genItemPanels(contract, itemSearch);
+                genItemPanels();
             else
                 genNotLoaded();
         }
 
-        private void genText(Contract contract)
+        private void genText()
         {
             lb_ContractName.MaximumSize = new Size(150,0);
             lb_ContractName.Text = contract.info.title;
@@ -49,7 +51,7 @@ namespace NukeContracts.UI
             pnl_ItemWindow.Controls.Add(panelToAdd);
         }
 
-        private void genItemPanels(Contract contract, IDSearch itemSearch)
+        private void genItemPanels()
         {
             int itemCount = 0;
             int top = 0;
@@ -58,7 +60,7 @@ namespace NukeContracts.UI
             int width = 400;
             foreach (ContractContents item in contract.contents)
             {
-                ItemPanel panelToAdd = new ItemPanel(item, itemSearch);
+                ItemPanel panelToAdd = new ItemPanel(item);
                 panelToAdd.Top = top;
                 panelToAdd.Left = left;
                 panelToAdd.Height = height;
@@ -83,13 +85,18 @@ namespace NukeContracts.UI
 
         void i_Click(object sender, EventArgs e)
         {
-            foreach(ItemPanel otherPanel in itemPanels)
+            pnl_ItemDetails.Controls.Clear();
+            foreach (ItemPanel otherPanel in itemPanels)
             {
                 otherPanel.BackColor = SystemColors.Control;
             }
             ItemPanel item = (ItemPanel)sender;
             item.BackColor = Color.CadetBlue;
-            pnl_ItemDetails.Controls.Add(new ItemDetails(item.item));
+            int hold = contract.contents.IndexOf(item.item);
+            if (contract.typeInfo.Count > hold && contract.typeInfo[hold] != null)
+                pnl_ItemDetails.Controls.Add(new ItemDetails(item.item, contract.typeInfo[contract.contents.IndexOf(item.item)]));
+            else
+                pnl_ItemDetails.Controls.Add(new ItemDetails(item.item));
         }
     }
 }

@@ -13,13 +13,19 @@ namespace NukeContracts.UI
 {
     public partial class ItemDetails : UserControl
     {
-        public TypeCall typeInfo;
-
         public ItemDetails(ContractContents item)
         {
             InitializeComponent();
             lb_itemID.Text = item.item_id.ToString();
             lb_typeID.Text = item.type_id.ToString();
+        }
+
+        public ItemDetails(ContractContents item, TypeCall typeInfo)
+        {
+            InitializeComponent();
+            lb_itemID.Text = item.item_id.ToString();
+            lb_typeID.Text = item.type_id.ToString();
+            lb_TYPE.Text = typeInfo.description;
         }
     }
 }

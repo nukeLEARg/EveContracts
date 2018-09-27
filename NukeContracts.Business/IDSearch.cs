@@ -10,18 +10,11 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace NukeContracts.Business
 {
-    public class IDSearch
+    public static class IDSearch
     {
-        public List<ItemNames> items { get; set; }
-
-        public IDSearch()
-        {
-            items = new List<ItemNames>();
-            buildItemList();
-        }
-
-
-        public string getName(int id)
+        private static List<ItemNames> items = new List<ItemNames>();
+        
+        public static string getName(int id)
         {
             var found = items.SingleOrDefault(Item => Item.type_id == id);
             if (found != null)
@@ -29,9 +22,8 @@ namespace NukeContracts.Business
             else
                 return "name not found";
         }
-
-
-        private void buildItemList()
+        
+        public async static void buildItemList()
         {
             List<string> splitted = new List<string>();
             string fileList = GetCSV("typeids.csv");
@@ -41,21 +33,24 @@ namespace NukeContracts.Business
             parser.HasFieldsEnclosedInQuotes = true;
             parser.SetDelimiters(",");
 
-            while (!parser.EndOfData)
+            await Task.Run(() =>
             {
-                try
+                while (!parser.EndOfData)
                 {
-                    string[] tempStr = parser.ReadFields();
-                    items.Add(new ItemNames(tempStr[0], tempStr[1]));
+                    try
+                    {
+                        string[] tempStr = parser.ReadFields();
+                        items.Add(new ItemNames(tempStr[0], tempStr[1]));
+                    }
+                    catch (MalformedLineException e)
+                    {
+                        items.Add(new ItemNames("-1", e.Message));
+                    }
                 }
-                catch(MalformedLineException e)
-                {
-                    items.Add(new ItemNames("-1",e.Message));
-                }
-            }
+            });
         }
         
-        private string GetCSV(string url)
+        private static string GetCSV(string url)
         {
             StreamReader sr = new StreamReader(url);
             string results = sr.ReadToEnd();

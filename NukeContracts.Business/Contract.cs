@@ -12,7 +12,7 @@ namespace NukeContracts.Business
         public List<ContractContents> contents { get; set; }
         public ContractCall info { get; set; }
         public ESIStructure station { get; set; }
-        public List<TypeCall> typeInfo = new List<TypeCall>();
+        public List<TypeCall> typeInfo { get; set; } = new List<TypeCall>();
         public int index { get; set; }
 
         public Contract(ContractCall call,int i)
@@ -33,7 +33,7 @@ namespace NukeContracts.Business
             NukeESI.ESIClass esi = new ESIClass();
             List<ContractContents> contents = await esi.pullContract(call.contract_id).ConfigureAwait(false);
             this.contents = contents;
-            resolveTypes(contents);
+            await resolveTypes(contents);
         }
 
         private async Task resolveStructure(ContractCall call)
@@ -43,17 +43,17 @@ namespace NukeContracts.Business
             station = stat;
         }
 
-        private void resolveTypes(List<ContractContents> items)
+        private async Task resolveTypes(List<ContractContents> items)
         {
-            if (items != null)
+            ESIClass esi = new ESIClass();
+            await Task.Run(() =>
             {
-                ESIClass esi = new ESIClass();
                 foreach (ContractContents item in items)
                 {
                     TypeCall info = esi.pullTypeInfo(item.type_id);
                     typeInfo.Add(info);
                 }
-            }
+            });
         }
     }
 }
