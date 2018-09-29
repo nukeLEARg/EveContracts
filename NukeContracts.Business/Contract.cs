@@ -25,6 +25,7 @@ namespace NukeContracts.Business
         {
             await resolveContents(info);
             await resolveStructure(info);
+            await resolveTypes(contents);
         }
         
 
@@ -33,7 +34,6 @@ namespace NukeContracts.Business
             NukeESI.ESIClass esi = new ESIClass();
             List<ContractContents> contents = await esi.pullContract(call.contract_id).ConfigureAwait(false);
             this.contents = contents;
-            await resolveTypes(contents);
         }
 
         private async Task resolveStructure(ContractCall call)
