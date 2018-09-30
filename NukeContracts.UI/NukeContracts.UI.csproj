@@ -163,10 +163,6 @@
       <Project>{65308e42-1c17-4467-adcd-8610443947c5}</Project>
       <Name>NukeContracts.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NukeESI\NukeESI.csproj">
-      <Project>{64cc3dcf-79fc-4774-9e94-75d745a438da}</Project>
-      <Name>NukeESI</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
