@@ -1,6 +1,8 @@
 ﻿using NukeContracts.Business.Enumerations;
+using System.Linq;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace NukeContracts.Business.Extensions
 {
@@ -8,7 +10,8 @@ namespace NukeContracts.Business.Extensions
     {
         public static string DisplayName(this Region value)
         {
-            var attribute = (DisplayAttribute)Attribute.GetCustomAttribute(typeof(Region), typeof(DisplayAttribute));
+            var member = typeof(Region).GetMember($"{value}").FirstOrDefault();
+            var attribute = member?.GetCustomAttribute(typeof(DisplayAttribute)) as DisplayAttribute;
             return attribute?.Name ?? value.ToString();
         }
 

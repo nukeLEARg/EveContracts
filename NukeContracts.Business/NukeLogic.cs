@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using ESI.NET;
 using ESI.NET.Enumerations;
 using Microsoft.Extensions.Options;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ESIContract = ESI.NET.Models.Contracts.Contract;
+using ESIContractItem = ESI.NET.Models.Contracts.ContractItem;
 
 namespace NukeContracts.Business
 {
@@ -17,7 +19,6 @@ namespace NukeContracts.Business
         private EsiClient Esi { get; set; }
 
         private Dictionary<Region, IEnumerable<Contract>> _contracts = new Dictionary<Region, IEnumerable<Contract>>();
-        private static IMapper mapper = EsiMapper.Mapper;
 
         public NukeLogic()
         {
@@ -32,6 +33,11 @@ namespace NukeContracts.Business
             });
 
             Esi = new EsiClient(Config);
+            Mapper.Initialize(cfg => {
+                cfg.AddProfile<EsiProfile>();
+                cfg.CreateMissingTypeMaps = true;
+            });
+            Mapper.Configuration.CompileMappings();
         }
 
         public IEnumerable<Contract> Contracts(Region region)
@@ -39,15 +45,53 @@ namespace NukeContracts.Business
             if (!Enum.IsDefined(typeof(Region), (int)region)) throw new ArgumentException($"Invalid region value. ({(int)region}).", "region");
             if (!_contracts.ContainsKey(region)) //while we dont handle etags, lets use this as cache
             {
-                var x = Esi.Contracts.Contracts((int)region);
-                //possibly do stuff here with the task for progress event and shit. status / validation etc?
-                var contracts = x.Result.Data.Select(mapper.Map<ESIContract, Contract>);
-                //todo : get individual contract details and items etc etc
-                //todo : add fields to Contract class for other sub-dto fields and then map them in automapper
-                //todo : eventually filter mutaplasmid only contracts here. (if desired)
+                var task = Esi.Contracts.Contracts((int)region);
+                //todo : do stuff here with the task for progress event
+                //include auctions?
+                var contracts = task.Result.Data.Where(c => c.Type == ContractType.ItemExchange).AsQueryable().ProjectTo<Contract>().ToList();
+                contracts.ForEach(c =>
+                {
+                    //todo : create parallel tasks for sub-fetching
+
+                    //todo : fetch structure
+
+                    var items = ContractItems(c.ContractId);
+                    if (items != null) c.Items.AddRange(items);
+
+                    //todo : eventually filter mutaplasmid only contracts here. (if desired)
+
+                    //todo : fetch each item's additional data (Type, Dogma, Dynamic)~
+                });
+
                 _contracts.Add(region, contracts);
             }
             return _contracts[region];
         }
+
+        public IEnumerable<ContractItem> ContractItems(int contractId)
+        {
+            var task = Esi.Contracts.ContractItems(contractId);
+            return task.Result.Data?.AsQueryable().ProjectTo<ContractItem>();
+        }
+
+        /*
+        public async Task<ESIStructure> pullStructure(long station_id)
+        {
+            string request = $"v2/universe/stations/{station_id}/?datasource=tranquility";
+            ESIStructure station = new ESIStructure();
+            station = await ExecuteESIAsync<ESIStructure>(request).ConfigureAwait(false);
+
+            return station;
+        }
+
+        public TypeCall pullTypeInfo(int type_id)
+        {
+            string request = $"/v3/universe/types/{type_id}/?datasource=tranquility";
+            TypeCall typeInfo = new TypeCall();
+            typeInfo = ExecuteESI<TypeCall>(request, 1);
+
+            return typeInfo;
+        }
+        /**/
     }
 }

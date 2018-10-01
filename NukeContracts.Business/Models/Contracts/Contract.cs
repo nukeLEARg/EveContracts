@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace NukeContracts.Business.Models.Contracts
 {
@@ -26,5 +27,6 @@ namespace NukeContracts.Business.Models.Contracts
         public decimal Collateral { get; set; }
         public decimal Buyout { get; set; }
         public decimal Volume { get; set; }
+        public List<ContractItem> Items { get; set; } = new List<ContractItem>();
     }
 }
