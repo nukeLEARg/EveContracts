@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.Windows.Forms;
 using NukeContracts.Business;
-using NukeESI;
+using NukeContracts.Business.Models.Contracts;
 
 namespace NukeContracts.UI
 {
@@ -23,7 +23,7 @@ namespace NukeContracts.UI
             InitializeComponent();
             this.contract = contract;
             genText();
-            if (contract.contents != null)
+            if (contract.Items != null)
                 genItemPanels();
             else
                 genNotLoaded();
@@ -32,17 +32,19 @@ namespace NukeContracts.UI
         private void genText()
         {
             lb_ContractName.MaximumSize = new Size(150,0);
-            lb_ContractName.Text = contract.info.title;
-            lb_Type.Text = contract.info.type;
-            lb_Price.Text = $"{contract.info.price:#,##0.00} ISK";
-            lb_Volume.Text = contract.info.volume.ToString();
-            lb_date_issued.Text = contract.info.date_issued;
-            lb_Expires.Text = contract.info.date_expired;
+            lb_ContractName.Text = contract.Title;
+            lb_Type.Text = contract.Type;
+            lb_Price.Text = $"{contract.Price:#,##0.00} ISK";
+            lb_Volume.Text = contract.Volume.ToString();
+            lb_date_issued.Text = contract.DateIssued.ToString();
+            lb_Expires.Text = contract.DateExpired.ToString();
             lb_Location.MaximumSize = new Size(184, 0);
+            /* TODO Waiting on model
             if (contract.station != null && contract.station.name != null)
                 lb_Location.Text = contract.station.name;
             else
                 lb_Location.Text = contract.info.start_location_id.ToString();
+                */
         }
 
         private void genNotLoaded()
@@ -58,7 +60,7 @@ namespace NukeContracts.UI
             int left = 0;
             int height = 50;
             int width = 400;
-            foreach (ContractContents item in contract.contents)
+            foreach (ContractItem item in contract.Items)
             {
                 ItemPanel panelToAdd = new ItemPanel(item);
                 panelToAdd.Top = top;
@@ -92,11 +94,8 @@ namespace NukeContracts.UI
             }
             ItemPanel item = (ItemPanel)sender;
             item.BackColor = Color.CadetBlue;
-            int hold = contract.contents.IndexOf(item.item);
-            if (contract.typeInfo.Count > hold && contract.typeInfo[hold] != null)
-                pnl_ItemDetails.Controls.Add(new ItemDetails(item.item, contract.typeInfo[contract.contents.IndexOf(item.item)]));
-            else
-                pnl_ItemDetails.Controls.Add(new ItemDetails(item.item));
+            int hold = contract.Items.IndexOf(item.item);
+            pnl_ItemDetails.Controls.Add(new ItemDetails(item.item));
         }
     }
 }

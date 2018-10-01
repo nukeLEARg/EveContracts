@@ -8,8 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using NukeESI;
 using NukeContracts.Business;
+using NukeContracts.Business.Models.Contracts;
 
 namespace NukeContracts.UI
 {
@@ -19,20 +19,20 @@ namespace NukeContracts.UI
          * If the item images are not showing up please download the Types.zip from here: https://developers.eveonline.com/resource/resources
          * And extract it to the build folder and rename it to Items
          */
-        public ContractContents item { get; set; }
+        public ContractItem item { get; set; }
         
-        public ItemPanel(ContractContents item)
+        public ItemPanel(ContractItem item)
         {
             InitializeComponent();
             this.item = item;
             genText(item);
         }
 
-        private void genText(ContractContents item)
+        private void genText(ContractItem item)
         {
-            lb_Amount.Text = "x" + item.quantity.ToString();
-            lb_ItemName.Text = IDSearch.getName(item.type_id);
-            String path = $"Items\\{item.type_id}_64.png";
+            lb_Amount.Text = "x" + item.Quantity.ToString();
+            //lb_ItemName.Text = IDSearch.getName(item.type_id); TODO Names
+            String path = $"Items\\{item.TypeId}_64.png";
             if (File.Exists(path))
                 pb_Icon.Load(path);
         }

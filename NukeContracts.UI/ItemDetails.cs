@@ -7,25 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using NukeESI;
+using NukeContracts.Business.Models.Contracts;
 
 namespace NukeContracts.UI
 {
     public partial class ItemDetails : UserControl
     {
-        public ItemDetails(ContractContents item)
+        public ItemDetails(ContractItem item)
         {
             InitializeComponent();
-            lb_itemID.Text = item.item_id.ToString();
-            lb_typeID.Text = item.type_id.ToString();
-        }
-
-        public ItemDetails(ContractContents item, TypeCall typeInfo)
-        {
-            InitializeComponent();
-            lb_itemID.Text = item.item_id.ToString();
-            lb_typeID.Text = item.type_id.ToString();
-            lb_TYPE.Text = typeInfo.description;
+            lb_itemID.Text = item.ItemId.ToString();
+            lb_typeID.Text = item.TypeId.ToString();
         }
     }
 }
