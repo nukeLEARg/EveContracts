@@ -102,6 +102,9 @@
     <Compile Include="Extensions\EnumExtension.cs" />
     <Compile Include="Models\Contracts\Contract.cs" />
     <Compile Include="Models\Contracts\ContractItem.cs" />
+    <Compile Include="Models\Position.cs" />
+    <Compile Include="Models\Universe\Station.cs" />
+    <Compile Include="Models\Universe\Structure.cs" />
     <Compile Include="NukeLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

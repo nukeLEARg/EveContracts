@@ -4,12 +4,18 @@ using ESI.NET;
 using ESI.NET.Enumerations;
 using Microsoft.Extensions.Options;
 using NukeContracts.Business.Enumerations;
+using NukeContracts.Business.Models;
 using NukeContracts.Business.Models.Contracts;
-using System;
+using NukeContracts.Business.Models.Universe;
+using EsiContract = ESI.NET.Models.Contracts.Contract;
+using EsiContractItem = ESI.NET.Models.Contracts.ContractItem;
+using EsiPosition = ESI.NET.Models.Position;
+using EsiStation = ESI.NET.Models.Universe.Station;
+using EsiStructure = ESI.NET.Models.Universe.Structure;
 using System.Collections.Generic;
 using System.Linq;
-using ESIContract = ESI.NET.Models.Contracts.Contract;
-using ESIContractItem = ESI.NET.Models.Contracts.ContractItem;
+using System;
+using System.Threading.Tasks;
 
 namespace NukeContracts.Business
 {
@@ -18,7 +24,7 @@ namespace NukeContracts.Business
         private IOptions<EsiConfig> Config { get; set; }
         private EsiClient Esi { get; set; }
 
-        private Dictionary<Region, IEnumerable<Contract>> _contracts = new Dictionary<Region, IEnumerable<Contract>>();
+        private Dictionary<Region, List<Contract>> _contracts = new Dictionary<Region, List<Contract>>();
 
         public NukeLogic()
         {
@@ -33,35 +39,42 @@ namespace NukeContracts.Business
             });
 
             Esi = new EsiClient(Config);
-            Mapper.Initialize(cfg => {
+            Mapper.Initialize(cfg =>
+            {
                 cfg.AddProfile<EsiProfile>();
                 cfg.CreateMissingTypeMaps = true;
             });
             Mapper.Configuration.CompileMappings();
         }
-
-        public IEnumerable<Contract> Contracts(Region region)
+        
+        public List<Contract> Contracts(Region region)
         {
             if (!Enum.IsDefined(typeof(Region), (int)region)) throw new ArgumentException($"Invalid region value. ({(int)region}).", "region");
             if (!_contracts.ContainsKey(region)) //while we dont handle etags, lets use this as cache
             {
                 var task = Esi.Contracts.Contracts((int)region);
-                //todo : do stuff here with the task for progress event
+                //todo : handle request status
                 //include auctions?
                 var contracts = task.Result.Data.Where(c => c.Type == ContractType.ItemExchange).AsQueryable().ProjectTo<Contract>().ToList();
+                var tasks = new List<Task>();
+
                 contracts.ForEach(c =>
                 {
-                    //todo : create parallel tasks for sub-fetching
+                    //todo : create a Task for sub-fetches
 
-                    //todo : fetch structure
+                    //c.Structure = Structure(c.StartLocationId); //PRIVATE ENDPOINT!
+                    if(c.StartLocationId <= int.MaxValue) c.Station = Station((int)c.StartLocationId); // "<= int.MaxValue" good enough or validate stationId value range?
 
-                    var items = ContractItems(c.ContractId);
-                    if (items != null) c.Items.AddRange(items);
-
-                    //todo : eventually filter mutaplasmid only contracts here. (if desired)
+                    c.Items.AddRange(ContractItems(c.ContractId) ?? Enumerable.Empty<ContractItem>());
 
                     //todo : fetch each item's additional data (Type, Dogma, Dynamic)~
+
+                    //todo : add Task to tasks!
                 });
+
+                //todo : await all subtasks and fire an event of progress either time based or after each Task completes
+
+                //todo : eventually filter mutaplasmid only contracts here. (if desired)
 
                 _contracts.Add(region, contracts);
             }
@@ -74,16 +87,19 @@ namespace NukeContracts.Business
             return task.Result.Data?.AsQueryable().ProjectTo<ContractItem>();
         }
 
-        /*
-        public async Task<ESIStructure> pullStructure(long station_id)
+        public Station Station(int stationId)
         {
-            string request = $"v2/universe/stations/{station_id}/?datasource=tranquility";
-            ESIStructure station = new ESIStructure();
-            station = await ExecuteESIAsync<ESIStructure>(request).ConfigureAwait(false);
-
-            return station;
+            var task = Esi.Universe.Station(stationId);
+            return Mapper.Map<Station>(task.Result.Data);
         }
 
+        public Structure Structure(long structureId)
+        {
+            var task = Esi.Universe.Structure(structureId);
+            return Mapper.Map<Structure>(task.Result.Data);
+        }
+
+        /*
         public TypeCall pullTypeInfo(int type_id)
         {
             string request = $"/v3/universe/types/{type_id}/?datasource=tranquility";
