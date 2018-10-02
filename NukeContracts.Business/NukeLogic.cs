@@ -48,7 +48,8 @@ namespace NukeContracts.Business
                 var task = Esi.Contracts.Contracts((int)region);
                 //todo : do stuff here with the task for progress event
                 //include auctions?
-                var contracts = task.Result.Data.Where(c => c.Type == ContractType.ItemExchange).AsQueryable().ProjectTo<Contract>().ToList();
+                var hold = task.Result;
+                var contracts = hold.Data.Where(c => c.Type == ContractType.ItemExchange).AsQueryable().ProjectTo<Contract>().ToList();
                 contracts.ForEach(c =>
                 {
                     //todo : create parallel tasks for sub-fetching

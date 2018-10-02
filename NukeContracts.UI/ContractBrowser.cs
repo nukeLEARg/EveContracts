@@ -1,11 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using NukeContracts.Business;
 using NukeContracts.Business.Models.Contracts;
@@ -17,7 +11,7 @@ namespace NukeContracts.UI
 {
     public partial class ContractBrowser : Form
     {
-        private NukeLogic nuke = new NukeLogic();
+        //private NukeLogic nuke = new NukeLogic();
 
         public ContractBrowser()
         {
@@ -36,6 +30,7 @@ namespace NukeContracts.UI
         private void button1_Click(object sender, EventArgs e)
         {
             tv_MainView.Nodes.Clear();
+            var nuke = new NukeLogic();
             var contracts = nuke.Contracts(EveRegion.TheSpire);
             lb_Pages.Text = $"Contracts: {contracts.Count()}";
             foreach (Contract contract in contracts)
