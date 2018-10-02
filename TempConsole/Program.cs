@@ -12,7 +12,8 @@ namespace TempConsole
         {
             var nuke = new NukeLogic();
             Console.WriteLine($"Fetching contracts for region : {Region.TheSpire.DisplayName()}.");
-            var contracts = nuke.Contracts(Region.TheSpire);
+            //var contracts = nuke.Contracts(Region.TheSpire);
+            var contracts = nuke.Contracts(Region.BlackRise);
             var x = contracts.FirstOrDefault();
         }
     }
