@@ -11,7 +11,7 @@ namespace NukeContracts.UI
 {
     public partial class ContractBrowser : Form
     {
-        //private NukeLogic nuke = new NukeLogic();
+        private NukeLogic nuke = new NukeLogic();
 
         public ContractBrowser()
         {
@@ -19,18 +19,15 @@ namespace NukeContracts.UI
         }
 
         private void tv_Main_AfterSelect(object sender, TreeViewEventArgs e)
-        {   /*
-            TODO: REFACTOR
+        {   
             pnl_InfoPane.Controls.Clear();
-            Contract contract = nuke.filteredContracts[tv_MainView.SelectedNode.Index];
+            Contract contract = nuke.Contracts(EveRegion.TheSpire)[tv_MainView.SelectedNode.Index];
             pnl_InfoPane.Controls.Add(new ContractInfo(contract));
-            */
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             tv_MainView.Nodes.Clear();
-            var nuke = new NukeLogic();
             var contracts = nuke.Contracts(EveRegion.TheSpire);
             lb_Pages.Text = $"Contracts: {contracts.Count()}";
             foreach (Contract contract in contracts)
@@ -40,7 +37,6 @@ namespace NukeContracts.UI
                 else
                     tv_MainView.Nodes.Add(new TreeNode(contract.Title));
             }
-            pnl_InfoPane.Controls.Add(new ContractInfo(contracts.FirstOrDefault()));
         }
     }
 }
