@@ -39,12 +39,7 @@ namespace NukeContracts.UI
             lb_date_issued.Text = contract.DateIssued.ToString();
             lb_Expires.Text = contract.DateExpired.ToString();
             lb_Location.MaximumSize = new Size(184, 0);
-            /* TODO Waiting on model
-            if (contract.station != null && contract.station.name != null)
-                lb_Location.Text = contract.station.name;
-            else
-                lb_Location.Text = contract.info.start_location_id.ToString();
-                */
+            lb_Location.Text = contract?.Station?.Name ?? contract.StartLocationId.ToString();
         }
 
         private void genNotLoaded()

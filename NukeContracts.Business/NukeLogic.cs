@@ -64,10 +64,10 @@ namespace NukeContracts.Business
                     //todo : create a Task for sub-fetches
 
                     //c.Structure = Structure(c.StartLocationId); //PRIVATE ENDPOINT!
-                    //if (c.StartLocationId <= int.MaxValue) c.Station = Station((int)c.StartLocationId); // "<= int.MaxValue" good enough or validate stationId value range?
+                    if (c.StartLocationId <= int.MaxValue) c.Station = Station((int)c.StartLocationId); // "<= int.MaxValue" good enough or validate stationId value range?
 
                     c.Items.AddRange(ContractItems(c.ContractId) ?? Enumerable.Empty<ContractItem>());
-
+                    
                     //todo : fetch each item's additional data (Type, Dogma, Dynamic)~
 
                     //todo : add Task to tasks!
