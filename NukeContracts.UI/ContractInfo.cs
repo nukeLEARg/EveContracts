@@ -23,7 +23,7 @@ namespace NukeContracts.UI
             InitializeComponent();
             this.contract = contract;
             genText();
-            if (contract.Items != null)
+            if (contract.Items.Count > 0)
                 genItemPanels();
             else
                 genNotLoaded();

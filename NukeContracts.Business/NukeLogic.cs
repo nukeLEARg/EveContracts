@@ -53,7 +53,6 @@ namespace NukeContracts.Business
             if (!Enum.IsDefined(typeof(Region), (int)region)) throw new ArgumentException($"Invalid region value. ({(int)region}).", "region");
             if (!_contracts.ContainsKey(region)) //while we dont handle etags, lets use this as cache
             {
-                var task = Esi.Contracts.Contracts((int)region);
                 //todo : handle request status
                 //include auctions?
                 var result = AsyncHelper.RunSync(() => Esi.Contracts.Contracts((int)region));
@@ -67,7 +66,7 @@ namespace NukeContracts.Business
                     //c.Structure = Structure(c.StartLocationId); //PRIVATE ENDPOINT!
                     //if (c.StartLocationId <= int.MaxValue) c.Station = Station((int)c.StartLocationId); // "<= int.MaxValue" good enough or validate stationId value range?
 
-                    //c.Items.AddRange(ContractItems(c.ContractId) ?? Enumerable.Empty<ContractItem>());
+                    c.Items.AddRange(ContractItems(c.ContractId) ?? Enumerable.Empty<ContractItem>());
 
                     //todo : fetch each item's additional data (Type, Dogma, Dynamic)~
 
@@ -85,20 +84,20 @@ namespace NukeContracts.Business
 
         public IEnumerable<ContractItem> ContractItems(int contractId)
         {
-            var task = Esi.Contracts.ContractItems(contractId);
-            return AsyncHelper.RunSync(() => task).Data?.AsQueryable().ProjectTo<ContractItem>();
+            var result = AsyncHelper.RunSync(() => Esi.Contracts.ContractItems(contractId));
+            return result.Data?.AsQueryable().ProjectTo<ContractItem>();
         }
 
         public Station Station(int stationId)
         {
-            var task = Esi.Universe.Station(stationId);
-            return Mapper.Map<Station>(AsyncHelper.RunSync(() => task).Data);
+            var result = AsyncHelper.RunSync(() => Esi.Universe.Station(stationId));
+            return Mapper.Map<Station>(result.Data);
         }
 
         public Structure Structure(long structureId)
         {
-            var task = Esi.Universe.Structure(structureId);
-            return Mapper.Map<Structure>(AsyncHelper.RunSync(() => task).Data);
+            var result = AsyncHelper.RunSync(() => Esi.Universe.Structure(structureId));
+            return Mapper.Map<Structure>(result.Data);
         }
 
         /*
