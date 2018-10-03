@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using System.Threading.Tasks;
+using NukeContracts.Business.Helpers;
 
 namespace NukeContracts.Business
 {
@@ -46,7 +47,7 @@ namespace NukeContracts.Business
             });
             Mapper.Configuration.CompileMappings();
         }
-        
+
         public List<Contract> Contracts(Region region)
         {
             if (!Enum.IsDefined(typeof(Region), (int)region)) throw new ArgumentException($"Invalid region value. ({(int)region}).", "region");
@@ -55,18 +56,18 @@ namespace NukeContracts.Business
                 var task = Esi.Contracts.Contracts((int)region);
                 //todo : handle request status
                 //include auctions?
-				
-                var contracts = task.Result.Data.Where(c => c.Type == ContractType.ItemExchange).AsQueryable().ProjectTo<Contract>().ToList();
+                var result = AsyncHelper.RunSync(() => Esi.Contracts.Contracts((int)region));
+                var contracts = result.Data.Where(c => c.Type == ContractType.ItemExchange).AsQueryable().ProjectTo<Contract>().ToList();
                 var tasks = new List<Task>();
-				
+
                 contracts.ForEach(c =>
                 {
                     //todo : create a Task for sub-fetches
 
                     //c.Structure = Structure(c.StartLocationId); //PRIVATE ENDPOINT!
-                    if(c.StartLocationId <= int.MaxValue) c.Station = Station((int)c.StartLocationId); // "<= int.MaxValue" good enough or validate stationId value range?
+                    //if (c.StartLocationId <= int.MaxValue) c.Station = Station((int)c.StartLocationId); // "<= int.MaxValue" good enough or validate stationId value range?
 
-                    c.Items.AddRange(ContractItems(c.ContractId) ?? Enumerable.Empty<ContractItem>());
+                    //c.Items.AddRange(ContractItems(c.ContractId) ?? Enumerable.Empty<ContractItem>());
 
                     //todo : fetch each item's additional data (Type, Dogma, Dynamic)~
 
@@ -85,19 +86,19 @@ namespace NukeContracts.Business
         public IEnumerable<ContractItem> ContractItems(int contractId)
         {
             var task = Esi.Contracts.ContractItems(contractId);
-            return task.Result.Data?.AsQueryable().ProjectTo<ContractItem>();
+            return AsyncHelper.RunSync(() => task).Data?.AsQueryable().ProjectTo<ContractItem>();
         }
 
         public Station Station(int stationId)
         {
             var task = Esi.Universe.Station(stationId);
-            return Mapper.Map<Station>(task.Result.Data);
+            return Mapper.Map<Station>(AsyncHelper.RunSync(() => task).Data);
         }
 
         public Structure Structure(long structureId)
         {
             var task = Esi.Universe.Structure(structureId);
-            return Mapper.Map<Structure>(task.Result.Data);
+            return Mapper.Map<Structure>(AsyncHelper.RunSync(() => task).Data);
         }
 
         /*

@@ -114,6 +114,7 @@
     <Compile Include="Enumerations\Region.cs" />
     <Compile Include="EsiProfile.cs" />
     <Compile Include="Extensions\EnumExtension.cs" />
+    <Compile Include="Helpers\AsyncHelper.cs" />
     <Compile Include="Models\Contracts\Contract.cs" />
     <Compile Include="Models\Contracts\ContractItem.cs" />
     <Compile Include="Models\Position.cs" />

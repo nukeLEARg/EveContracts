@@ -4,8 +4,8 @@ using System.Windows.Forms;
 using NukeContracts.Business;
 using NukeContracts.Business.Models.Contracts;
 using EveRegion = NukeContracts.Business.Enumerations.Region;
-
-
+using ESI.NET;
+using Microsoft.Extensions.Options;
 
 namespace NukeContracts.UI
 {
@@ -28,6 +28,7 @@ namespace NukeContracts.UI
         private void button1_Click(object sender, EventArgs e)
         {
             tv_MainView.Nodes.Clear();
+            
             var contracts = nuke.Contracts(EveRegion.TheSpire);
             lb_Pages.Text = $"Contracts: {contracts.Count()}";
             foreach (Contract contract in contracts)
