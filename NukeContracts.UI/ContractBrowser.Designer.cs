@@ -28,22 +28,14 @@ namespace NukeContracts.UI
         /// </summary>
         private void InitializeComponent()
         {
-            this.tv_MainView = new System.Windows.Forms.TreeView();
             this.pnl_InfoPane = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.dd_region = new System.Windows.Forms.ComboBox();
             this.lb_Pages = new System.Windows.Forms.Label();
             this.pb_APIBar = new System.Windows.Forms.ProgressBar();
             this.lb_progress = new System.Windows.Forms.Label();
+            this.pnl_ContractWindow = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // tv_MainView
-            // 
-            this.tv_MainView.Location = new System.Drawing.Point(12, 12);
-            this.tv_MainView.Name = "tv_MainView";
-            this.tv_MainView.Size = new System.Drawing.Size(248, 500);
-            this.tv_MainView.TabIndex = 0;
-            this.tv_MainView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tv_Main_AfterSelect);
             // 
             // pnl_InfoPane
             // 
@@ -99,18 +91,26 @@ namespace NukeContracts.UI
             this.lb_progress.Text = "0/0";
             this.lb_progress.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // pnl_ContractWindow
+            // 
+            this.pnl_ContractWindow.AutoScroll = true;
+            this.pnl_ContractWindow.Location = new System.Drawing.Point(13, 12);
+            this.pnl_ContractWindow.Name = "pnl_ContractWindow";
+            this.pnl_ContractWindow.Size = new System.Drawing.Size(247, 500);
+            this.pnl_ContractWindow.TabIndex = 16;
+            // 
             // ContractBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1274, 576);
+            this.Controls.Add(this.pnl_ContractWindow);
             this.Controls.Add(this.lb_Pages);
             this.Controls.Add(this.lb_progress);
             this.Controls.Add(this.pb_APIBar);
             this.Controls.Add(this.dd_region);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pnl_InfoPane);
-            this.Controls.Add(this.tv_MainView);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ContractBrowser";
             this.Text = "Contract Browser";
@@ -120,14 +120,13 @@ namespace NukeContracts.UI
         }
 
         #endregion
-
-        private System.Windows.Forms.TreeView tv_MainView;
         private System.Windows.Forms.Panel pnl_InfoPane;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox dd_region;
         private System.Windows.Forms.Label lb_Pages;
         private System.Windows.Forms.ProgressBar pb_APIBar;
         private System.Windows.Forms.Label lb_progress;
+        private System.Windows.Forms.Panel pnl_ContractWindow;
     }
 }
 
