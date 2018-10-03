@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using NukeContracts.Business;
 using NukeContracts.Business.Models.Contracts;
 
-namespace NukeContracts.UI
+namespace NukeContracts.UI.Controls
 {
     public partial class ContractInfo : UserControl
     {

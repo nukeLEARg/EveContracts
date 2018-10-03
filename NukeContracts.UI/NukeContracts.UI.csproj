@@ -73,10 +73,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContractInfo.cs">
+    <Compile Include="Controls\ContractInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ContractInfo.Designer.cs">
+    <Compile Include="Controls\ContractInfo.Designer.cs">
       <DependentUpon>ContractInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="ContractBrowser.cs">
@@ -85,27 +85,27 @@
     <Compile Include="ContractBrowser.Designer.cs">
       <DependentUpon>ContractBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="ItemDetails.cs">
+    <Compile Include="Controls\ItemDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ItemDetails.Designer.cs">
+    <Compile Include="Controls\ItemDetails.Designer.cs">
       <DependentUpon>ItemDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="ItemPanel.cs">
+    <Compile Include="Controls\ItemPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ItemPanel.Designer.cs">
+    <Compile Include="Controls\ItemPanel.Designer.cs">
       <DependentUpon>ItemPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ItemWarning.cs">
+    <Compile Include="Controls\ItemWarning.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ItemWarning.Designer.cs">
+    <Compile Include="Controls\ItemWarning.Designer.cs">
       <DependentUpon>ItemWarning.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ContractInfo.resx">
+    <EmbeddedResource Include="Controls\ContractInfo.resx">
       <DependentUpon>ContractInfo.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -113,14 +113,14 @@
       <DependentUpon>ContractBrowser.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ItemDetails.resx">
+    <EmbeddedResource Include="Controls\ItemDetails.resx">
       <DependentUpon>ItemDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ItemPanel.resx">
+    <EmbeddedResource Include="Controls\ItemPanel.resx">
       <DependentUpon>ItemPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ItemWarning.resx">
+    <EmbeddedResource Include="Controls\ItemWarning.resx">
       <DependentUpon>ItemWarning.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

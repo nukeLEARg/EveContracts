@@ -1,4 +1,4 @@
-﻿namespace NukeContracts.UI
+﻿namespace NukeContracts.UI.Controls
 {
     partial class ItemPanel
     {

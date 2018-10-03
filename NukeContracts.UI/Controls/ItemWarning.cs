@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NukeContracts.UI
+namespace NukeContracts.UI.Controls
 {
     public partial class ItemWarning : UserControl
     {

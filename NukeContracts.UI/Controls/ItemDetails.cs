@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NukeContracts.Business.Models.Contracts;
 
-namespace NukeContracts.UI
+namespace NukeContracts.UI.Controls
 {
     public partial class ItemDetails : UserControl
     {
