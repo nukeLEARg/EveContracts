@@ -13,6 +13,7 @@ namespace NukeContracts.UI
 
         public ContractBrowser()
         {
+            IDSearch.buildItemList();
             InitializeComponent();
         }
 

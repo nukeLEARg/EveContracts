@@ -31,7 +31,7 @@ namespace NukeContracts.UI.Controls
         private void genText(ContractItem item)
         {
             lb_Amount.Text = "x" + item.Quantity.ToString();
-            //lb_ItemName.Text = IDSearch.getName(item.type_id); TODO Names
+            lb_ItemName.Text = IDSearch.getName(item.TypeId);
             String path = $"Items\\{item.TypeId}_64.png";
             if (File.Exists(path))
                 pb_Icon.Load(path);
