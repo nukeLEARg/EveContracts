@@ -118,6 +118,7 @@
     <Compile Include="IDSearch.cs" />
     <Compile Include="Models\Contracts\Contract.cs" />
     <Compile Include="Models\Contracts\ContractItem.cs" />
+    <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Universe\Station.cs" />
     <Compile Include="Models\Universe\Structure.cs" />

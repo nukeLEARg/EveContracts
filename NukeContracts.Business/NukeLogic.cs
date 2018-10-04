@@ -82,6 +82,13 @@ namespace NukeContracts.Business
             return _contracts[region];
         }
 
+        public List<Contract> FilterContracts(List<Contract> contracts, Filter filter)
+        {
+
+
+            return contracts;
+        }
+
         public IEnumerable<ContractItem> ContractItems(int contractId)
         {
             var result = AsyncHelper.RunSync(() => Esi.Contracts.ContractItems(contractId));

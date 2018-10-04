@@ -20,14 +20,7 @@ namespace NukeContracts.UI
             IDSearch.buildItemList();
             InitializeComponent();
         }
-        /*
-        private void tv_Main_AfterSelect(object sender, TreeViewEventArgs e)
-        {   
-            pnl_InfoPane.Controls.Clear();
-            Contract contract = nuke.Contracts(EveRegion.TheSpire)[tv_MainView.SelectedNode.Index];
-            pnl_InfoPane.Controls.Add(new ContractInfo(contract));
-        }
-        */
+
         private void button1_Click(object sender, EventArgs e)
         {
             var contracts = nuke.Contracts(EveRegion.TheSpire);
