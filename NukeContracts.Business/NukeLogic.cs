@@ -5,6 +5,7 @@ using ESI.NET.Enumerations;
 using Microsoft.Extensions.Options;
 using NukeContracts.Business.Enumerations;
 using NukeContracts.Business.Models;
+using NukeContracts.Business.Models.Items;
 using NukeContracts.Business.Models.Contracts;
 using NukeContracts.Business.Models.Universe;
 using EsiContract = ESI.NET.Models.Contracts.Contract;
@@ -12,6 +13,7 @@ using EsiContractItem = ESI.NET.Models.Contracts.ContractItem;
 using EsiPosition = ESI.NET.Models.Position;
 using EsiStation = ESI.NET.Models.Universe.Station;
 using EsiStructure = ESI.NET.Models.Universe.Structure;
+using NukeType = NukeContracts.Business.Models.Items.Type;
 using System.Collections.Generic;
 using System.Linq;
 using System;
@@ -67,8 +69,16 @@ namespace NukeContracts.Business
                     if (c.StartLocationId <= int.MaxValue) c.Station = Station((int)c.StartLocationId); // "<= int.MaxValue" good enough or validate stationId value range?
 
                     c.Items.AddRange(ContractItems(c.ContractId) ?? Enumerable.Empty<ContractItem>());
-                    
-                    //todo : fetch each item's additional data (Type, Dogma, Dynamic)~
+                    c.Items.ForEach(i => 
+                    {
+                        if (true) //todo: replace true with a is dynamic item check
+                        {
+                            i.Dogma = DynamicDogma(i.ItemId, i.TypeId);
+                        }
+                        i.Type = Type(i.TypeId);
+                    });
+
+                    //todo : fetch each item's additional data (Type)~
 
                     //todo : add Task to tasks!
                 });
@@ -84,8 +94,10 @@ namespace NukeContracts.Business
 
         public List<Contract> FilterContracts(List<Contract> contracts, Filter filter)
         {
+            foreach (Contract contract in contracts)
+            {
 
-
+            }
             return contracts;
         }
 
@@ -105,6 +117,18 @@ namespace NukeContracts.Business
         {
             var result = AsyncHelper.RunSync(() => Esi.Universe.Structure(structureId));
             return Mapper.Map<Structure>(result.Data);
+        }
+
+        public Dogma DynamicDogma(long item_id, int type_id)
+        {
+            var result = AsyncHelper.RunSync(() => Esi.Dogma.DynamicItem(type_id,item_id));
+            return Mapper.Map<Dogma>(result.Data);
+        }
+
+        public NukeType Type(int type_id)
+        {
+            var result = AsyncHelper.RunSync(() => Esi.Universe.Type(type_id));
+            return Mapper.Map<NukeType>(result.Data);
         }
 
         /*

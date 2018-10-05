@@ -10,8 +10,8 @@ namespace NukeContracts.Business.Models
     {
         public decimal Price { get; set; }
         public string Type { get; set; }
-        public List<int> Items { get; set; }
-        public List<int> dogmas { get; set; }
+        public List<int> Items { get; set; } //temp
+        public List<int> dogmas { get; set; } //temp
         
         public Filter()
         {

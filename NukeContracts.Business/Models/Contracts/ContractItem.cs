@@ -1,4 +1,7 @@
-﻿namespace NukeContracts.Business.Models.Contracts
+﻿using NukeContracts.Business.Models.Items;
+using System.Collections.Generic;
+
+namespace NukeContracts.Business.Models.Contracts
 {
     public class ContractItem
     {
@@ -13,5 +16,7 @@
         public int MaterialEfficiency { get; set; }
         public int Runs { get; set; }
         public int TimeEfficiency { get; set; }
+        public Dogma Dogma { get; set; }
+        public Type Type {get; set;}
     }
 }
