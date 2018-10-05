@@ -73,16 +73,15 @@ namespace NukeContracts.Business
                     {
                         if (true) //todo: replace true with a is dynamic item check
                         {
-                            i.Dogma = DynamicDogma(i.ItemId, i.TypeId);
+                            //i.Dogma = DynamicDogma(i.ItemId, i.TypeId);
                         }
                         i.Type = Type(i.TypeId);
                     });
-
+                    
                     //todo : fetch each item's additional data (Type)~
 
                     //todo : add Task to tasks!
                 });
-
                 //todo : await all subtasks and fire an event of progress either time based or after each Task completes
 
                 //todo : eventually filter mutaplasmid only contracts here. (if desired)
