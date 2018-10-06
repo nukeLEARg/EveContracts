@@ -8,7 +8,7 @@ namespace NukeContracts.Business.Enumerations
         [Display(Name = "The Forge")] TheForge = 10000002,
         [Display(Name = "Vale of the Silent")] ValeOfTheSilent = 10000003,
         [Display(Name = "UUA-F4")] UUAF4 = 10000004,
-        [Display(Name = "Detorid")] pastenamehere = 10000005,
+        [Display(Name = "Detorid")] Detorid = 10000005,
         [Display(Name = "Wicked Creek")] WickedCreek = 10000006,
         [Display(Name = "Cache")] Cache = 10000007,
         [Display(Name = "Scalding Pass")] ScaldingPass = 10000008,

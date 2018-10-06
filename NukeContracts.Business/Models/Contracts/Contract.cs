@@ -28,7 +28,8 @@ namespace NukeContracts.Business.Models.Contracts
         public decimal Collateral { get; set; }
         public decimal Buyout { get; set; }
         public decimal Volume { get; set; }
-        public List<ContractItem> Items { get; set; } = new List<ContractItem>();
+        public List<ContractItem> ItemsOffered { get; set; } = new List<ContractItem>();
+        public List<ContractItem> ItemsAsked { get; set; } = new List<ContractItem>();
         public Structure Structure { get; set; } //temp?
         public Station Station { get; set; } //temp?
     }

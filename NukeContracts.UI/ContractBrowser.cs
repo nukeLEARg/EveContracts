@@ -1,34 +1,65 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using NukeContracts.Business;
+using NukeContracts.Business.Events;
 using NukeContracts.Business.Models.Contracts;
 using NukeContracts.UI.Controls;
-using EveRegion = NukeContracts.Business.Enumerations.Region;
+using Region = NukeContracts.Business.Enumerations.Region;
 
 namespace NukeContracts.UI
 {
     public partial class ContractBrowser : Form
     {
-        private NukeLogic nuke = new NukeLogic();
-        private List<ContractPanel> ContractPanels = new List<ContractPanel>();
+        private NukeLogic _nuke;
+        private List<ContractPanel> _contractPanels;
 
         public ContractBrowser()
         {
-            IDSearch.buildItemList();
             InitializeComponent();
+            IDSearch.buildItemList();
+            _contractPanels = new List<ContractPanel>();
+            _nuke = new NukeLogic();
+            _nuke.ContractLoaded += ContractLoaded;
+            cbo_Region.DataSource = Enum.GetValues(typeof(Region)); //todo : display DisplayNames instead
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ContractLoaded(object sender, ContractLoadedEventArgs e)
         {
-            var contracts = nuke.Contracts(EveRegion.TheSpire);
-            lb_Pages.Text = $"Contracts: {contracts.Count()}";
-            buildContractList(contracts);
+            if (pb_APIBar.InvokeRequired) pb_APIBar.BeginInvoke((Action)(() => ContractLoaded(sender, e)));
+            else
+            {
+                Debug.WriteLine($"Received notification for contract[{e.ContractId}] loaded!");
+                if (++pb_APIBar.Value != pb_APIBar.Maximum) lbl_progress.Text = $"loading {pb_APIBar.Maximum - pb_APIBar.Value} contracts...";
+                else
+                {
+                    pb_APIBar.Visible = false;
+                    lbl_progress.Visible = false;
+                    cbo_Region.Enabled = true;
+                    btn_LoadRegion.Enabled = true;
+                }
+            }
         }
 
-        private void buildContractList(List<Contract> contracts)
+        private void Btn_LoadRegion_Click(object sender, EventArgs e)
+        {
+            cbo_Region.Enabled = false;
+            btn_LoadRegion.Enabled = false;
+            Enum.TryParse(cbo_Region.SelectedValue.ToString(), out Region region);
+            var contracts = _nuke.Contracts(region);
+            lb_Pages.Text = $"Contracts: {contracts.Count()}";
+            pb_APIBar.Value = 0;
+            pb_APIBar.Maximum = contracts.Count();
+            pb_APIBar.Visible = true;
+            lbl_progress.Visible = true;
+            lbl_progress.Text = $"loading {contracts.Count()} contracts...";
+            BuildContractList(contracts);
+        }
+
+        private void BuildContractList(List<Contract> contracts)
         {
             pnl_ContractWindow.Controls.Clear();
             int contractCount = 0;
@@ -38,18 +69,20 @@ namespace NukeContracts.UI
             int width = 230;
             foreach (Contract contract in contracts)
             {
-                ContractPanel panelToAdd = new ContractPanel(contract);
-                panelToAdd.Top = top;
-                panelToAdd.Left = left;
-                panelToAdd.Height = height;
-                panelToAdd.Width = width;
+                ContractPanel panelToAdd = new ContractPanel(contract)
+                {
+                    Top = top,
+                    Left = left,
+                    Height = height,
+                    Width = width
+                };
                 panelToAdd.Click += i_Click;
                 foreach (Control cont in panelToAdd.Controls)
                 {
                     cont.Click += c_Click;
                 }
                 pnl_ContractWindow.Controls.Add(panelToAdd);
-                ContractPanels.Add(panelToAdd);
+                _contractPanels.Add(panelToAdd);
                 top += height;
                 contractCount++;
             }
@@ -64,7 +97,7 @@ namespace NukeContracts.UI
         void i_Click(object sender, EventArgs e)
         {
             pnl_InfoPane.Controls.Clear();
-            foreach (ContractPanel otherPanel in ContractPanels)
+            foreach (ContractPanel otherPanel in _contractPanels)
             {
                 otherPanel.BackColor = SystemColors.Control;
             }

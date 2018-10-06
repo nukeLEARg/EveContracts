@@ -23,7 +23,7 @@ namespace NukeContracts.UI.Controls
             InitializeComponent();
             this.contract = contract;
             genText();
-            if (contract.Items.Count > 0)
+            if (contract.ItemsOffered.Count > 0)
                 genItemPanels();
             else
                 genNotLoaded();
@@ -55,7 +55,7 @@ namespace NukeContracts.UI.Controls
             int left = 0;
             int height = 50;
             int width = 400;
-            foreach (ContractItem item in contract.Items)
+            foreach (ContractItem item in contract.ItemsOffered)
             {
                 ItemPanel panelToAdd = new ItemPanel(item);
                 panelToAdd.Top = top;
@@ -89,7 +89,7 @@ namespace NukeContracts.UI.Controls
             }
             ItemPanel item = (ItemPanel)sender;
             item.BackColor = Color.CadetBlue;
-            int hold = contract.Items.IndexOf(item.item);
+            int hold = contract.ItemsOffered.IndexOf(item.item);
             pnl_ItemDetails.Controls.Add(new ItemDetails(item.item));
         }
     }

@@ -29,11 +29,11 @@ namespace NukeContracts.UI
         private void InitializeComponent()
         {
             this.pnl_InfoPane = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.dd_region = new System.Windows.Forms.ComboBox();
+            this.btn_LoadRegion = new System.Windows.Forms.Button();
+            this.cbo_Region = new System.Windows.Forms.ComboBox();
             this.lb_Pages = new System.Windows.Forms.Label();
             this.pb_APIBar = new System.Windows.Forms.ProgressBar();
-            this.lb_progress = new System.Windows.Forms.Label();
+            this.lbl_progress = new System.Windows.Forms.Label();
             this.pnl_ContractWindow = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
@@ -44,26 +44,26 @@ namespace NukeContracts.UI
             this.pnl_InfoPane.Size = new System.Drawing.Size(1000, 500);
             this.pnl_InfoPane.TabIndex = 1;
             // 
-            // button1
+            // btn_LoadRegion
             // 
-            this.button1.Location = new System.Drawing.Point(13, 545);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(133, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Load";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_LoadRegion.Location = new System.Drawing.Point(13, 545);
+            this.btn_LoadRegion.Name = "btn_LoadRegion";
+            this.btn_LoadRegion.Size = new System.Drawing.Size(133, 23);
+            this.btn_LoadRegion.TabIndex = 2;
+            this.btn_LoadRegion.Text = "Load";
+            this.btn_LoadRegion.UseVisualStyleBackColor = true;
+            this.btn_LoadRegion.Click += new System.EventHandler(this.Btn_LoadRegion_Click);
             // 
-            // dd_region
+            // cbo_Region
             // 
-            this.dd_region.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dd_region.FormattingEnabled = true;
-            this.dd_region.Items.AddRange(new object[] {
+            this.cbo_Region.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbo_Region.FormattingEnabled = true;
+            this.cbo_Region.Items.AddRange(new object[] {
             "Select Region"});
-            this.dd_region.Location = new System.Drawing.Point(13, 518);
-            this.dd_region.Name = "dd_region";
-            this.dd_region.Size = new System.Drawing.Size(247, 21);
-            this.dd_region.TabIndex = 3;
+            this.cbo_Region.Location = new System.Drawing.Point(13, 518);
+            this.cbo_Region.Name = "cbo_Region";
+            this.cbo_Region.Size = new System.Drawing.Size(247, 21);
+            this.cbo_Region.TabIndex = 3;
             // 
             // lb_Pages
             // 
@@ -79,17 +79,20 @@ namespace NukeContracts.UI
             this.pb_APIBar.Location = new System.Drawing.Point(266, 519);
             this.pb_APIBar.Name = "pb_APIBar";
             this.pb_APIBar.Size = new System.Drawing.Size(996, 23);
+            this.pb_APIBar.Step = 1;
             this.pb_APIBar.TabIndex = 4;
+            this.pb_APIBar.Visible = false;
             // 
-            // lb_progress
+            // lbl_progress
             // 
-            this.lb_progress.BackColor = System.Drawing.Color.Transparent;
-            this.lb_progress.Location = new System.Drawing.Point(266, 546);
-            this.lb_progress.Name = "lb_progress";
-            this.lb_progress.Size = new System.Drawing.Size(996, 12);
-            this.lb_progress.TabIndex = 5;
-            this.lb_progress.Text = "0/0";
-            this.lb_progress.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lbl_progress.BackColor = System.Drawing.Color.Transparent;
+            this.lbl_progress.Location = new System.Drawing.Point(266, 546);
+            this.lbl_progress.Name = "lbl_progress";
+            this.lbl_progress.Size = new System.Drawing.Size(996, 12);
+            this.lbl_progress.TabIndex = 5;
+            this.lbl_progress.Text = "0/0";
+            this.lbl_progress.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lbl_progress.Visible = false;
             // 
             // pnl_ContractWindow
             // 
@@ -106,10 +109,10 @@ namespace NukeContracts.UI
             this.ClientSize = new System.Drawing.Size(1274, 576);
             this.Controls.Add(this.pnl_ContractWindow);
             this.Controls.Add(this.lb_Pages);
-            this.Controls.Add(this.lb_progress);
+            this.Controls.Add(this.lbl_progress);
             this.Controls.Add(this.pb_APIBar);
-            this.Controls.Add(this.dd_region);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.cbo_Region);
+            this.Controls.Add(this.btn_LoadRegion);
             this.Controls.Add(this.pnl_InfoPane);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ContractBrowser";
@@ -121,11 +124,11 @@ namespace NukeContracts.UI
 
         #endregion
         private System.Windows.Forms.Panel pnl_InfoPane;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox dd_region;
+        private System.Windows.Forms.Button btn_LoadRegion;
+        private System.Windows.Forms.ComboBox cbo_Region;
         private System.Windows.Forms.Label lb_Pages;
         private System.Windows.Forms.ProgressBar pb_APIBar;
-        private System.Windows.Forms.Label lb_progress;
+        private System.Windows.Forms.Label lbl_progress;
         private System.Windows.Forms.Panel pnl_ContractWindow;
     }
 }
