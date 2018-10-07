@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using NukeContracts.Business;
 using NukeContracts.Business.Events;
+using NukeContracts.Business.Extensions;
 using NukeContracts.Business.Models.Contracts;
 using NukeContracts.UI.Controls;
 using Region = NukeContracts.Business.Enumerations.Region;
@@ -24,7 +25,11 @@ namespace NukeContracts.UI
             _contractPanels = new List<ContractPanel>();
             _nuke = new NukeLogic();
             _nuke.ContractLoaded += ContractLoaded;
-            cbo_Region.DataSource = Enum.GetValues(typeof(Region)); //todo : display DisplayNames instead
+            cbo_Region.DataSource = Enum.GetValues(typeof(Region));
+            cbo_Region.Format += delegate (object sender, ListControlConvertEventArgs e)
+            {
+                e.Value = ((Region)e.Value).DisplayName();
+            };
         }
 
         private void ContractLoaded(object sender, ContractLoadedEventArgs e)
@@ -49,13 +54,24 @@ namespace NukeContracts.UI
             cbo_Region.Enabled = false;
             btn_LoadRegion.Enabled = false;
             Enum.TryParse(cbo_Region.SelectedValue.ToString(), out Region region);
+
             var contracts = _nuke.Contracts(region);
-            lb_Pages.Text = $"Contracts: {contracts.Count()}";
-            pb_APIBar.Value = 0;
-            pb_APIBar.Maximum = contracts.Count();
-            pb_APIBar.Visible = true;
-            lbl_progress.Visible = true;
-            lbl_progress.Text = $"loading {contracts.Count()} contracts...";
+            var allLoaded = !contracts.Any(c => !c.isLoaded);
+
+            cbo_Region.Enabled = allLoaded;
+            btn_LoadRegion.Enabled = allLoaded;
+            pb_APIBar.Visible = !allLoaded;
+            lbl_progress.Visible = !allLoaded;
+
+            if (!allLoaded)
+            {
+                pb_APIBar.Value = 0;
+                pb_APIBar.Maximum = contracts.Count();
+                lbl_Pages.Text = $"Contracts: {contracts.Count()}";
+                lbl_progress.Text = $"loading {contracts.Count()} contracts...";
+            }
+
+
             BuildContractList(contracts);
         }
 

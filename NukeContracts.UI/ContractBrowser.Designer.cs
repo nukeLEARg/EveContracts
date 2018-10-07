@@ -31,7 +31,7 @@ namespace NukeContracts.UI
             this.pnl_InfoPane = new System.Windows.Forms.Panel();
             this.btn_LoadRegion = new System.Windows.Forms.Button();
             this.cbo_Region = new System.Windows.Forms.ComboBox();
-            this.lb_Pages = new System.Windows.Forms.Label();
+            this.lbl_Pages = new System.Windows.Forms.Label();
             this.pb_APIBar = new System.Windows.Forms.ProgressBar();
             this.lbl_progress = new System.Windows.Forms.Label();
             this.pnl_ContractWindow = new System.Windows.Forms.Panel();
@@ -67,12 +67,12 @@ namespace NukeContracts.UI
             // 
             // lb_Pages
             // 
-            this.lb_Pages.AutoSize = true;
-            this.lb_Pages.Location = new System.Drawing.Point(152, 550);
-            this.lb_Pages.Name = "lb_Pages";
-            this.lb_Pages.Size = new System.Drawing.Size(43, 13);
-            this.lb_Pages.TabIndex = 0;
-            this.lb_Pages.Text = "Pages: ";
+            this.lbl_Pages.AutoSize = true;
+            this.lbl_Pages.Location = new System.Drawing.Point(152, 550);
+            this.lbl_Pages.Name = "lb_Pages";
+            this.lbl_Pages.Size = new System.Drawing.Size(43, 13);
+            this.lbl_Pages.TabIndex = 0;
+            this.lbl_Pages.Text = "Pages: ";
             // 
             // pb_APIBar
             // 
@@ -108,7 +108,7 @@ namespace NukeContracts.UI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1274, 576);
             this.Controls.Add(this.pnl_ContractWindow);
-            this.Controls.Add(this.lb_Pages);
+            this.Controls.Add(this.lbl_Pages);
             this.Controls.Add(this.lbl_progress);
             this.Controls.Add(this.pb_APIBar);
             this.Controls.Add(this.cbo_Region);
@@ -126,7 +126,7 @@ namespace NukeContracts.UI
         private System.Windows.Forms.Panel pnl_InfoPane;
         private System.Windows.Forms.Button btn_LoadRegion;
         private System.Windows.Forms.ComboBox cbo_Region;
-        private System.Windows.Forms.Label lb_Pages;
+        private System.Windows.Forms.Label lbl_Pages;
         private System.Windows.Forms.ProgressBar pb_APIBar;
         private System.Windows.Forms.Label lbl_progress;
         private System.Windows.Forms.Panel pnl_ContractWindow;

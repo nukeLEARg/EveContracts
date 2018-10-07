@@ -30,7 +30,8 @@ namespace NukeContracts.Business.Models.Contracts
         public decimal Volume { get; set; }
         public List<ContractItem> ItemsOffered { get; set; } = new List<ContractItem>();
         public List<ContractItem> ItemsAsked { get; set; } = new List<ContractItem>();
-        public Structure Structure { get; set; } //temp?
-        public Station Station { get; set; } //temp?
+        public Structure Structure { get; set; }
+        public Station Station { get; set; }
+        public bool isLoaded { get; internal set; }
     }
 }

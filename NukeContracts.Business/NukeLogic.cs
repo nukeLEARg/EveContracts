@@ -131,6 +131,7 @@ namespace NukeContracts.Business
                         #endregion
                         
                         Debug.WriteLine($"Contract[{c.ContractId}] details finished loading.");
+                        c.isLoaded = true;
                         ContractLoaded(this, new ContractLoadedEventArgs() { ContractId = c.ContractId });
                     });
                 });
