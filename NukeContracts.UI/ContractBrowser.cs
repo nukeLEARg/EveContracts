@@ -17,6 +17,9 @@ namespace NukeContracts.UI
     {
         private NukeLogic _nuke;
         private List<ContractPanel> _contractPanels;
+        private List<Contract> _contracts;
+        private int listStart = 0;
+        private int listStep = 100;
 
         public ContractBrowser()
         {
@@ -83,7 +86,8 @@ namespace NukeContracts.UI
             int left = 0;
             int height = 40;
             int width = 230;
-            foreach (Contract contract in contracts)
+            List<Contract> reducedContracts = contracts.Skip(listStart).Take(listStep).ToList();
+            foreach (Contract contract in reducedContracts)
             {
                 ContractPanel panelToAdd = new ContractPanel(contract)
                 {
@@ -120,6 +124,24 @@ namespace NukeContracts.UI
             ContractPanel contract = (ContractPanel)sender;
             contract.BackColor = Color.CadetBlue;
             pnl_InfoPane.Controls.Add(new ContractInfo(contract.contract));
+        }
+
+        private void btn_NextPage_Click(object sender, EventArgs e)
+        {
+            if(listStart + listStep < _contracts.Count)
+            {
+                listStart += listStep;
+            }
+            BuildContractList(_contracts);
+        }
+
+        private void btn_PrevPage_Click(object sender, EventArgs e)
+        {
+            if(listStart != 0)
+            {
+                listStart -= listStep; ;
+            }
+            BuildContractList(_contracts);
         }
     }
 }

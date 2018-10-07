@@ -35,6 +35,8 @@ namespace NukeContracts.UI
             this.pb_APIBar = new System.Windows.Forms.ProgressBar();
             this.lbl_progress = new System.Windows.Forms.Label();
             this.pnl_ContractWindow = new System.Windows.Forms.Panel();
+            this.btn_NextPage = new System.Windows.Forms.Button();
+            this.btn_PrevPage = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pnl_InfoPane
@@ -102,11 +104,33 @@ namespace NukeContracts.UI
             this.pnl_ContractWindow.Size = new System.Drawing.Size(247, 500);
             this.pnl_ContractWindow.TabIndex = 16;
             // 
+            // btn_NextPage
+            // 
+            this.btn_NextPage.Location = new System.Drawing.Point(341, 546);
+            this.btn_NextPage.Name = "btn_NextPage";
+            this.btn_NextPage.Size = new System.Drawing.Size(84, 23);
+            this.btn_NextPage.TabIndex = 17;
+            this.btn_NextPage.Text = "Next Page";
+            this.btn_NextPage.UseVisualStyleBackColor = true;
+            this.btn_NextPage.Click += new System.EventHandler(this.btn_NextPage_Click);
+            // 
+            // btn_PrevPage
+            // 
+            this.btn_PrevPage.Location = new System.Drawing.Point(251, 546);
+            this.btn_PrevPage.Name = "btn_PrevPage";
+            this.btn_PrevPage.Size = new System.Drawing.Size(84, 23);
+            this.btn_PrevPage.TabIndex = 18;
+            this.btn_PrevPage.Text = "Previous Page";
+            this.btn_PrevPage.UseVisualStyleBackColor = true;
+            this.btn_PrevPage.Click += new System.EventHandler(this.btn_PrevPage_Click);
+            // 
             // ContractBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1274, 576);
+            this.ClientSize = new System.Drawing.Size(1274, 573);
+            this.Controls.Add(this.btn_PrevPage);
+            this.Controls.Add(this.btn_NextPage);
             this.Controls.Add(this.pnl_ContractWindow);
             this.Controls.Add(this.lbl_Pages);
             this.Controls.Add(this.lbl_progress);
@@ -130,6 +154,8 @@ namespace NukeContracts.UI
         private System.Windows.Forms.ProgressBar pb_APIBar;
         private System.Windows.Forms.Label lbl_progress;
         private System.Windows.Forms.Panel pnl_ContractWindow;
+        private System.Windows.Forms.Button btn_NextPage;
+        private System.Windows.Forms.Button btn_PrevPage;
     }
 }
 
