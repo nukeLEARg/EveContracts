@@ -18,8 +18,8 @@ namespace NukeContracts.UI
         private NukeLogic _nuke;
         private List<ContractPanel> _contractPanels;
         private List<Contract> _contracts;
-        private int listStart = 0;
-        private int listStep = 100;
+        private int listPage = 0;
+        private int listStep = 12;
 
         public ContractBrowser()
         {
@@ -56,9 +56,12 @@ namespace NukeContracts.UI
         {
             cbo_Region.Enabled = false;
             btn_LoadRegion.Enabled = false;
-            Enum.TryParse(cbo_Region.SelectedValue.ToString(), out Region region);
+            btn_PrevPage.Enabled = false;
+            listPage = 0;
 
-            var contracts = _nuke.Contracts(region);
+            Enum.TryParse(cbo_Region.SelectedValue.ToString(), out Region region);
+            var testMax = 150000000;
+            var contracts = _nuke.Contracts(region, (Contract c) =>  c.Price > 500000 && c.Price < testMax);
             var allLoaded = !contracts.Any(c => !c.isLoaded);
 
             cbo_Region.Enabled = allLoaded;
@@ -74,11 +77,12 @@ namespace NukeContracts.UI
                 lbl_progress.Text = $"loading {contracts.Count()} contracts...";
             }
 
-
-            BuildContractList(contracts);
+            btn_NextPage.Enabled = contracts.Count() > listStep;
+            _contracts = contracts;
+            BuildContractList();
         }
 
-        private void BuildContractList(List<Contract> contracts)
+        private void BuildContractList()
         {
             pnl_ContractWindow.Controls.Clear();
             int contractCount = 0;
@@ -86,7 +90,7 @@ namespace NukeContracts.UI
             int left = 0;
             int height = 40;
             int width = 230;
-            List<Contract> reducedContracts = contracts.Skip(listStart).Take(listStep).ToList();
+            List<Contract> reducedContracts = _contracts.Skip(listPage*listStep).Take(listStep).ToList();
             foreach (Contract contract in reducedContracts)
             {
                 ContractPanel panelToAdd = new ContractPanel(contract)
@@ -128,20 +132,16 @@ namespace NukeContracts.UI
 
         private void btn_NextPage_Click(object sender, EventArgs e)
         {
-            if(listStart + listStep < _contracts.Count)
-            {
-                listStart += listStep;
-            }
-            BuildContractList(_contracts);
+            btn_PrevPage.Enabled = true;
+            if (++listPage >= Math.Ceiling(_contracts.Count() / (double)listStep) - 1)btn_NextPage.Enabled = false;
+            BuildContractList();
         }
 
         private void btn_PrevPage_Click(object sender, EventArgs e)
         {
-            if(listStart != 0)
-            {
-                listStart -= listStep; ;
-            }
-            BuildContractList(_contracts);
+            btn_NextPage.Enabled = true;
+            if (--listPage == 0) btn_PrevPage.Enabled = false;
+            BuildContractList();
         }
     }
 }

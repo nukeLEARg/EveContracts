@@ -25,8 +25,9 @@ namespace NukeContracts.UI.Controls
 
         private void genText(Contract contract)
         {
-            lb_Amount.Text = $"{contract.Price:#,##0.00} ISK";
+            if (string.IsNullOrWhiteSpace(contract.Title)) contract.Title = "No Title";
             lb_ContractName.Text = contract.Title;
+            lb_Amount.Text = $"{contract.Price:#,##0.00} ISK";
             String path = $"WindowIcons\\contracts.png";
             if (File.Exists(path))
                 pb_Icon.Load(path);

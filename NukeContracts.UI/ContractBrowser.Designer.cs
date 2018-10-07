@@ -67,11 +67,11 @@ namespace NukeContracts.UI
             this.cbo_Region.Size = new System.Drawing.Size(247, 21);
             this.cbo_Region.TabIndex = 3;
             // 
-            // lb_Pages
+            // lbl_Pages
             // 
             this.lbl_Pages.AutoSize = true;
             this.lbl_Pages.Location = new System.Drawing.Point(152, 550);
-            this.lbl_Pages.Name = "lb_Pages";
+            this.lbl_Pages.Name = "lbl_Pages";
             this.lbl_Pages.Size = new System.Drawing.Size(43, 13);
             this.lbl_Pages.TabIndex = 0;
             this.lbl_Pages.Text = "Pages: ";
@@ -106,6 +106,7 @@ namespace NukeContracts.UI
             // 
             // btn_NextPage
             // 
+            this.btn_NextPage.Enabled = false;
             this.btn_NextPage.Location = new System.Drawing.Point(341, 546);
             this.btn_NextPage.Name = "btn_NextPage";
             this.btn_NextPage.Size = new System.Drawing.Size(84, 23);
@@ -116,6 +117,7 @@ namespace NukeContracts.UI
             // 
             // btn_PrevPage
             // 
+            this.btn_PrevPage.Enabled = false;
             this.btn_PrevPage.Location = new System.Drawing.Point(251, 546);
             this.btn_PrevPage.Name = "btn_PrevPage";
             this.btn_PrevPage.Size = new System.Drawing.Size(84, 23);

@@ -28,7 +28,7 @@ namespace NukeContracts.Business
         private EsiClient Esi { get; set; }
 
         private List<ContractType> _includedTypes = new List<ContractType>(){ ContractType.ItemExchange, ContractType.Auction };
-        private Dictionary<Region, List<Contract>> _contracts = new Dictionary<Region, List<Contract>>();
+        private Dictionary<Region, (List<Contract> contracts, Func<Contract, bool> filter)> _contracts = new Dictionary<Region, (List<Contract> contracts, Func<Contract, bool> filter)>();
 
         /// <summary>
         /// 
@@ -79,29 +79,35 @@ namespace NukeContracts.Business
         /// </summary>
         /// <param name="region"></param>
         /// <returns></returns>
-        public List<Contract> Contracts(Region region)
+        public List<Contract> Contracts(Region region, Func<Contract, bool> filter = null)
         {
             if (!Enum.IsDefined(typeof(Region), (int)region)) throw new ArgumentException($"Invalid region value. ({(int)region}).", "region");
-            if (!_contracts.ContainsKey(region)) //while we dont handle etags, lets use this as cache
+            if (!_contracts.ContainsKey(region) || _contracts[region].filter != filter) //while we dont handle etags, lets use this as cache
             {
                 #region Contracts
 
                 EsiResponse<List<EsiContract>> response;
-                var contracts = new List<Contract>();
+                var contracts = _contracts.ContainsKey(region) ? _contracts[region].contracts : new List<Contract>();
                 var page = 1;
                 do
                 {
                     response =  AsyncHelper.RunSync(() => Esi.Contracts.Contracts((int)region, page));
                     if (response.StatusCode != HttpStatusCode.OK) return null;
                     
-                    contracts.AddRange(response.Data.Where(c => _includedTypes.Contains(c.Type)).AsQueryable().ProjectTo<Contract>().ToList());
+                    contracts.AddRange(response.Data.Where(c => _includedTypes.Contains(c.Type) && !contracts.Any(x => x.ContractId == c.ContractId)).AsQueryable().ProjectTo<Contract>().ToList());
                 } while (++page < response.Pages);
+
+                #endregion
+
+                #region Filter
+
+                if (filter == null) filter = (Contract c) => true;
+                contracts = contracts.Where(c => filter(c)).ToList();
 
                 #endregion
 
                 #region Contract Details
 
-                var tasks = new List<Task>();
                 contracts.ForEach(c =>
                 {
                     Task.Factory.StartNew(() =>
@@ -138,9 +144,9 @@ namespace NukeContracts.Business
 
                 #endregion
 
-                _contracts.Add(region, contracts);
+                _contracts.Add(region, (contracts, filter));
             }
-            return _contracts[region];
+            return _contracts[region].contracts;
         }
 
         /// <summary>
