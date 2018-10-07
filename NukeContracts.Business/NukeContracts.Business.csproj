@@ -74,7 +74,6 @@
     <Compile Include="IDSearch.cs" />
     <Compile Include="Models\Contracts\Contract.cs" />
     <Compile Include="Models\Contracts\ContractItem.cs" />
-    <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\Items\Dogma.cs" />
     <Compile Include="Models\Items\Type.cs" />
     <Compile Include="Models\Position.cs" />
@@ -85,6 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="App_Data\typeids.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

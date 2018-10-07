@@ -24,7 +24,7 @@ namespace NukeContracts.UI
         public ContractBrowser()
         {
             InitializeComponent();
-            IDSearch.buildItemList();
+            IDSearch.BuildItemList();
             _contractPanels = new List<ContractPanel>();
             _nuke = new NukeLogic();
             _nuke.ContractLoaded += ContractLoaded;
@@ -60,9 +60,17 @@ namespace NukeContracts.UI
             listPage = 0;
 
             Enum.TryParse(cbo_Region.SelectedValue.ToString(), out Region region);
+
+            #region Filter Building
+
             var testMax = 150000000;
-            var contracts = _nuke.Contracts(region, (Contract c) =>  c.Price > 500000 && c.Price < testMax);
-            var allLoaded = !contracts.Any(c => !c.isLoaded);
+            var testMin = 1000000;
+            Func<Contract,bool> filter = ((Contract c) => c.Price > testMin && c.Price < testMax);
+
+            #endregion
+
+            var contracts = _nuke.Contracts(region, filter);
+            var allLoaded = !contracts.Any(c => !c.IsLoaded);
 
             cbo_Region.Enabled = allLoaded;
             btn_LoadRegion.Enabled = allLoaded;
@@ -72,9 +80,9 @@ namespace NukeContracts.UI
             if (!allLoaded)
             {
                 pb_APIBar.Value = 0;
-                pb_APIBar.Maximum = contracts.Count();
+                pb_APIBar.Maximum = contracts.Count(c => !c.IsLoaded);
                 lbl_Pages.Text = $"Contracts: {contracts.Count()}";
-                lbl_progress.Text = $"loading {contracts.Count()} contracts...";
+                lbl_progress.Text = $"loading {contracts.Count(c => !c.IsLoaded)} contracts...";
             }
 
             btn_NextPage.Enabled = contracts.Count() > listStep;
@@ -100,10 +108,10 @@ namespace NukeContracts.UI
                     Height = height,
                     Width = width
                 };
-                panelToAdd.Click += i_Click;
+                panelToAdd.Click += I_Click;
                 foreach (Control cont in panelToAdd.Controls)
                 {
-                    cont.Click += c_Click;
+                    cont.Click += C_Click;
                 }
                 pnl_ContractWindow.Controls.Add(panelToAdd);
                 _contractPanels.Add(panelToAdd);
@@ -112,13 +120,13 @@ namespace NukeContracts.UI
             }
         }
 
-        void c_Click(object sender, EventArgs e)
+        void C_Click(object sender, EventArgs e)
         {
             Control cont = (Control)sender;
-            i_Click(cont.Parent, e);
+            I_Click(cont.Parent, e);
         }
 
-        void i_Click(object sender, EventArgs e)
+        void I_Click(object sender, EventArgs e)
         {
             pnl_InfoPane.Controls.Clear();
             foreach (ContractPanel otherPanel in _contractPanels)
@@ -127,17 +135,17 @@ namespace NukeContracts.UI
             }
             ContractPanel contract = (ContractPanel)sender;
             contract.BackColor = Color.CadetBlue;
-            pnl_InfoPane.Controls.Add(new ContractInfo(contract.contract));
+            pnl_InfoPane.Controls.Add(new ContractInfo(contract.Contract));
         }
 
-        private void btn_NextPage_Click(object sender, EventArgs e)
+        private void Btn_NextPage_Click(object sender, EventArgs e)
         {
             btn_PrevPage.Enabled = true;
             if (++listPage >= Math.Ceiling(_contracts.Count() / (double)listStep) - 1)btn_NextPage.Enabled = false;
             BuildContractList();
         }
 
-        private void btn_PrevPage_Click(object sender, EventArgs e)
+        private void Btn_PrevPage_Click(object sender, EventArgs e)
         {
             btn_NextPage.Enabled = true;
             if (--listPage == 0) btn_PrevPage.Enabled = false;

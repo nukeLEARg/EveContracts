@@ -14,23 +14,22 @@ namespace NukeContracts.UI.Controls
 {
     public partial class ContractPanel : UserControl
     {
-        public Contract contract { get; set; }
+        public Contract Contract { get; set; }
 
         public ContractPanel(Contract contract)
         {
             InitializeComponent();
-            this.contract = contract;
-            genText(contract);
+            Contract = contract;
+            GenerateText(contract);
         }
 
-        private void genText(Contract contract)
+        private void GenerateText(Contract contract)
         {
             if (string.IsNullOrWhiteSpace(contract.Title)) contract.Title = "No Title";
             lb_ContractName.Text = contract.Title;
             lb_Amount.Text = $"{contract.Price:#,##0.00} ISK";
             String path = $"WindowIcons\\contracts.png";
-            if (File.Exists(path))
-                pb_Icon.Load(path);
+            if (File.Exists(path)) pb_Icon.Load(path);
         }
     }
 }

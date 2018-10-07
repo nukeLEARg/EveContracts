@@ -89,8 +89,8 @@ namespace NukeContracts.UI.Controls
             }
             ItemPanel item = (ItemPanel)sender;
             item.BackColor = Color.CadetBlue;
-            int hold = contract.ItemsOffered.IndexOf(item.item);
-            pnl_ItemDetails.Controls.Add(new ItemDetails(item.item));
+            int hold = contract.ItemsOffered.IndexOf(item.Item);
+            pnl_ItemDetails.Controls.Add(new ItemDetails(item.Item));
         }
     }
 }

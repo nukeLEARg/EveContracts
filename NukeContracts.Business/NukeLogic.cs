@@ -137,24 +137,22 @@ namespace NukeContracts.Business
                         #endregion
                         
                         Debug.WriteLine($"Contract[{c.ContractId}] details finished loading.");
-                        c.isLoaded = true;
+                        c.IsLoaded = true;
                         ContractLoaded(this, new ContractLoadedEventArgs() { ContractId = c.ContractId });
                     });
                 });
 
                 #endregion
 
-                _contracts.Add(region, (contracts, filter));
+                _contracts[region] = (contracts, filter);
             }
             return _contracts[region].contracts;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="contractId"></param>
-        /// <returns></returns>
-        public IEnumerable<ContractItem> ContractItems(int contractId) => AsyncHelper.RunSync(() => Esi.Contracts.ContractItems(contractId)).Data?.AsQueryable().ProjectTo<ContractItem>();
+        public Contract Contract(int contractId)
+        {
+            throw new NotImplementedException();
+        }
         
         /// <summary>
         /// 
@@ -170,21 +168,16 @@ namespace NukeContracts.Business
         /// <returns></returns>
         public Structure Structure(long structureId) => Mapper.Map<Structure>(AsyncHelper.RunSync(() => Esi.Universe.Structure(structureId)).Data);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="item_id"></param>
-        /// <param name="type_id"></param>
-        /// <returns></returns>
-        public Dogma DynamicDogma(long item_id, int type_id) => Mapper.Map<Dogma>(AsyncHelper.RunSync(() => Esi.Dogma.DynamicItem(type_id, item_id)).Data);
+        #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type_id"></param>
-        /// <returns></returns>
-        public Type Type(int type_id) => Mapper.Map<Type>(AsyncHelper.RunSync(() => Esi.Universe.Type(type_id)).Data);
+        #region Private Methods
 
+        private IEnumerable<ContractItem> ContractItems(int contractId) => AsyncHelper.RunSync(() => Esi.Contracts.ContractItems(contractId)).Data?.AsQueryable().ProjectTo<ContractItem>();
+
+        private Dogma DynamicDogma(long item_id, int type_id) => Mapper.Map<Dogma>(AsyncHelper.RunSync(() => Esi.Dogma.DynamicItem(type_id, item_id)).Data);
+
+        private Type Type(int type_id) => Mapper.Map<Type>(AsyncHelper.RunSync(() => Esi.Universe.Type(type_id)).Data);
+        
         #endregion
     }
 }

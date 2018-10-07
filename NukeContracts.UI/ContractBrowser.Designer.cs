@@ -113,7 +113,7 @@ namespace NukeContracts.UI
             this.btn_NextPage.TabIndex = 17;
             this.btn_NextPage.Text = "Next Page";
             this.btn_NextPage.UseVisualStyleBackColor = true;
-            this.btn_NextPage.Click += new System.EventHandler(this.btn_NextPage_Click);
+            this.btn_NextPage.Click += new System.EventHandler(this.Btn_NextPage_Click);
             // 
             // btn_PrevPage
             // 
@@ -124,7 +124,7 @@ namespace NukeContracts.UI
             this.btn_PrevPage.TabIndex = 18;
             this.btn_PrevPage.Text = "Previous Page";
             this.btn_PrevPage.UseVisualStyleBackColor = true;
-            this.btn_PrevPage.Click += new System.EventHandler(this.btn_PrevPage_Click);
+            this.btn_PrevPage.Click += new System.EventHandler(this.Btn_PrevPage_Click);
             // 
             // ContractBrowser
             // 

@@ -32,6 +32,6 @@ namespace NukeContracts.Business.Models.Contracts
         public List<ContractItem> ItemsAsked { get; set; } = new List<ContractItem>();
         public Structure Structure { get; set; }
         public Station Station { get; set; }
-        public bool isLoaded { get; internal set; }
+        public bool IsLoaded { get; internal set; }
     }
 }

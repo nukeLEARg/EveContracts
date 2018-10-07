@@ -6,31 +6,21 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using Microsoft.VisualBasic.FileIO;
-
+using System.Diagnostics;
 
 namespace NukeContracts.Business
 {
     public static class IDSearch
     {
-        private static List<ItemNames> items = new List<ItemNames>();
-        
-        public static string getName(int id)
+        public static readonly Dictionary<string,string> Items = new Dictionary<string, string>();
+                
+        public async static void BuildItemList()
         {
-            var found = items.SingleOrDefault(Item => Item.type_id == id);
-            if (found != null)
-                return found.item_name;
-            else
-                return "name not found";
-        }
-        
-        public async static void buildItemList()
-        {
-            List<string> splitted = new List<string>();
-            string fileList = GetCSV("typeids.csv");
+            StreamReader sr = new StreamReader(@"App_Data\typeids.csv");
+            string content = sr.ReadToEnd().Replace("\"", "");
+            sr.Close();
 
-            TextFieldParser parser = new TextFieldParser(new StringReader(fileList));
-            
-            parser.HasFieldsEnclosedInQuotes = true;
+            TextFieldParser parser = new TextFieldParser(new StringReader(content));
             parser.SetDelimiters(",");
 
             await Task.Run(() =>
@@ -40,39 +30,14 @@ namespace NukeContracts.Business
                     try
                     {
                         string[] tempStr = parser.ReadFields();
-                        items.Add(new ItemNames(tempStr[0], tempStr[1]));
+                        Items[tempStr[0]] = tempStr[1];
                     }
                     catch (MalformedLineException e)
                     {
-                        items.Add(new ItemNames("-1", e.Message));
+                        Debug.WriteLine($"MalformedLineException : {e.Message}");
                     }
                 }
             });
-        }
-        
-        private static string GetCSV(string url)
-        {
-            StreamReader sr = new StreamReader(url);
-            string results = sr.ReadToEnd();
-            sr.Close();
-            
-            return results;
-        }
-    }
-
-    public class ItemNames
-    {
-        public int type_id { get; set; }
-        public string item_name { get; set; }
-
-        public ItemNames(string id, string name)
-        {
-            int x;
-            id = id.Replace("\"", "");
-            name = name.Replace("\"", "");
-            bool parsed = Int32.TryParse(id, out x);
-            type_id = x;
-            item_name = name;
         }
     }
 }
