@@ -1,15 +1,8 @@
-﻿using System;
+﻿using NukeContracts.Business.Models.Contracts;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
 using System.Windows.Forms;
-using NukeContracts.Business;
-using NukeContracts.Business.Models.Contracts;
 
 namespace NukeContracts.UI.Controls
 {
@@ -26,7 +19,7 @@ namespace NukeContracts.UI.Controls
             if (contract.ItemsOffered.Count > 0)
                 genItemPanels();
             else
-                genNotLoaded();
+                genNotLoaded(); 
         }
 
         private void genText()
@@ -44,7 +37,7 @@ namespace NukeContracts.UI.Controls
 
         private void genNotLoaded()
         {
-            ItemWarning panelToAdd = new ItemWarning();
+            ItemWarning panelToAdd = new ItemWarning(); //unnecessary
             pnl_ItemWindow.Controls.Add(panelToAdd);
         }
 

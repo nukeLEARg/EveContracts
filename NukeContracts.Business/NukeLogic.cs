@@ -33,7 +33,12 @@ namespace NukeContracts.Business
         /// <summary>
         /// 
         /// </summary>
-        public event ContractDetailsLoadedEventHandler ContractLoaded;
+        public event ContractEventHandler ContractLoaded;
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public event ContractEventHandler ContractsLoadingStarting;
 
         #endregion
 
@@ -107,7 +112,8 @@ namespace NukeContracts.Business
                 #endregion
 
                 #region Contract Details
-
+                
+                ContractsLoadingStarting(this, new ContractEventArgs { LoadingContractsAmmount = contracts.Count(c => !c.IsLoaded) });
                 contracts.ForEach(c =>
                 {
                     Task.Factory.StartNew(() =>
@@ -138,7 +144,7 @@ namespace NukeContracts.Business
                         
                         Debug.WriteLine($"Contract[{c.ContractId}] details finished loading.");
                         c.IsLoaded = true;
-                        ContractLoaded(this, new ContractLoadedEventArgs() { ContractId = c.ContractId });
+                        ContractLoaded(this, new ContractEventArgs() { ContractId = c.ContractId });
                     });
                 });
 

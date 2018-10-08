@@ -67,8 +67,8 @@
   <ItemGroup>
     <Compile Include="Enumerations\Region.cs" />
     <Compile Include="EsiProfile.cs" />
-    <Compile Include="Events\ContractLoadedEventHandler.cs" />
-    <Compile Include="Events\ContractLoadedEventArgs.cs" />
+    <Compile Include="Events\ContractEventHandler.cs" />
+    <Compile Include="Events\ContractEventArgs.cs" />
     <Compile Include="Extensions\EnumExtension.cs" />
     <Compile Include="Helpers\AsyncHelper.cs" />
     <Compile Include="IDSearch.cs" />
