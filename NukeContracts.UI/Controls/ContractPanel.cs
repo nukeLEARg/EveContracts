@@ -18,7 +18,8 @@ namespace NukeContracts.UI.Controls
 
         private void GenerateText(Contract contract)
         {
-            if (string.IsNullOrWhiteSpace(contract.Title)) contract.Title = "No Title";
+            //if (string.IsNullOrWhiteSpace(contract.Title)) contract.Title = "No Title"; #FIX THIS LATER
+            if (string.IsNullOrWhiteSpace(contract.Title)) contract.Title = contract.ContractId.ToString();
             lb_ContractName.Text = contract.Title;
             lb_Amount.Text = $"{contract.Price:#,##0.00} ISK";
             String path = $"WindowIcons\\contracts.png";

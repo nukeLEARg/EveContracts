@@ -127,11 +127,16 @@ namespace NukeContracts.Business
                             {
                                 //i.Dogma = DynamicDogma(i.ItemId, i.TypeId);
                             }
-                            //i.Type = Type(i.TypeId);
+                            i.Type = Type(i.TypeId);
+                            int x = 0;
                         });
-                        c.ItemsOffered.AddRange(items.Where(i => i.ItemId != 0));
-                        c.ItemsAsked.AddRange(items.Where(i => i.ItemId != 0));
 
+                        c.ItemsOffered.AddRange(items);
+                        //c.ItemsAsked.AddRange(items.Where(i => i.ItemId != 0)); #FIX THIS LATER
+
+                        Debug.WriteLine($"Contract[{c.ContractId}] details finished loading.");
+                        c.IsLoaded = true;
+                        ContractLoaded(this, new ContractEventArgs() { ContractId = c.ContractId });
                     });
                     #endregion
 
@@ -140,13 +145,8 @@ namespace NukeContracts.Business
                     {
                         //c.Structure = Structure(c.StartLocationId); //PRIVATE ENDPOINT!
                         if (c.StartLocationId <= int.MaxValue) c.Station = Station((int)c.StartLocationId); // "<= int.MaxValue" good enough or validate stationId value range?
-
-
                     });
                     #endregion
-                    Debug.WriteLine($"Contract[{c.ContractId}] details finished loading.");
-                    c.IsLoaded = true;
-                    ContractLoaded(this, new ContractEventArgs() { ContractId = c.ContractId });
                 });
 
                 #endregion

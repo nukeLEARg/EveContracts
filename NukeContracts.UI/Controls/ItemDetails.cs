@@ -18,6 +18,7 @@ namespace NukeContracts.UI.Controls
             InitializeComponent();
             lb_itemID.Text = item.ItemId.ToString();
             lb_typeID.Text = item.TypeId.ToString();
+            lb_TYPE.Text = item.Type?.ToString() ?? "type not loaded";
         }
     }
 }
