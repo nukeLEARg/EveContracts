@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\Dynamics.cs" />
     <Compile Include="Enumerations\Region.cs" />
     <Compile Include="EsiProfile.cs" />
     <Compile Include="Events\ContractEventHandler.cs" />
