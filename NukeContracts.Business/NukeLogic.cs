@@ -116,36 +116,37 @@ namespace NukeContracts.Business
                 ContractsLoadingStarting(this, new ContractEventArgs { LoadingContractsAmmount = contracts.Count(c => !c.IsLoaded) });
                 contracts.ForEach(c =>
                 {
+
+                    #region Contract Items
                     Task.Factory.StartNew(() =>
                     {
-                        #region Contract Location
-
-                        //c.Structure = Structure(c.StartLocationId); //PRIVATE ENDPOINT!
-                        if (c.StartLocationId <= int.MaxValue) c.Station = Station((int)c.StartLocationId); // "<= int.MaxValue" good enough or validate stationId value range?
-
-                        #endregion
-
-                        #region Contract Items
-
                         var items = ContractItems(c.ContractId) ?? Enumerable.Empty<ContractItem>();
                         items.ToList().ForEach(i =>
                         {
-                            if (true) //todo: replace true with a is dynamic item check
+                            if (Enum.IsDefined(typeof(Dynamics),i.TypeId)) //todo: replace true with a is dynamic item check
                             {
                                 //i.Dogma = DynamicDogma(i.ItemId, i.TypeId);
                             }
-                            i.Type = Type(i.TypeId);
+                            //i.Type = Type(i.TypeId);
                         });
-                        
                         c.ItemsOffered.AddRange(items.Where(i => i.ItemId != 0));
                         c.ItemsAsked.AddRange(items.Where(i => i.ItemId != 0));
 
-                        #endregion
-                        
-                        Debug.WriteLine($"Contract[{c.ContractId}] details finished loading.");
-                        c.IsLoaded = true;
-                        ContractLoaded(this, new ContractEventArgs() { ContractId = c.ContractId });
                     });
+                    #endregion
+
+                    #region Contract Location
+                    Task.Factory.StartNew(() =>
+                    {
+                        //c.Structure = Structure(c.StartLocationId); //PRIVATE ENDPOINT!
+                        if (c.StartLocationId <= int.MaxValue) c.Station = Station((int)c.StartLocationId); // "<= int.MaxValue" good enough or validate stationId value range?
+
+
+                    });
+                    #endregion
+                    Debug.WriteLine($"Contract[{c.ContractId}] details finished loading.");
+                    c.IsLoaded = true;
+                    ContractLoaded(this, new ContractEventArgs() { ContractId = c.ContractId });
                 });
 
                 #endregion
