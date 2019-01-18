@@ -125,7 +125,7 @@ namespace NukeContracts.Business
                         {
                             if (Enum.IsDefined(typeof(Dynamics),i.TypeId)) //todo: replace true with a is dynamic item check
                             {
-                                //i.Dogma = DynamicDogma(i.ItemId, i.TypeId);
+                                i.Dogma = DynamicDogma(i.ItemId, i.TypeId);
                             }
                             i.Type = Type(i.TypeId);
                             int x = 0;
