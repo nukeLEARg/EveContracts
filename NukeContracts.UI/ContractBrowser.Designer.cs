@@ -37,18 +37,22 @@ namespace NukeContracts.UI
             this.pnl_ContractWindow = new System.Windows.Forms.Panel();
             this.btn_NextPage = new System.Windows.Forms.Button();
             this.btn_PrevPage = new System.Windows.Forms.Button();
+            this.mu_Main = new System.Windows.Forms.MenuStrip();
+            this.mu_Main_Filters = new System.Windows.Forms.ToolStripMenuItem();
+            this.mu_Main_Filters_Abyssals = new System.Windows.Forms.ToolStripMenuItem();
+            this.mu_Main.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_InfoPane
             // 
-            this.pnl_InfoPane.Location = new System.Drawing.Point(266, 12);
+            this.pnl_InfoPane.Location = new System.Drawing.Point(266, 32);
             this.pnl_InfoPane.Name = "pnl_InfoPane";
             this.pnl_InfoPane.Size = new System.Drawing.Size(1000, 500);
             this.pnl_InfoPane.TabIndex = 1;
             // 
             // btn_LoadRegion
             // 
-            this.btn_LoadRegion.Location = new System.Drawing.Point(13, 545);
+            this.btn_LoadRegion.Location = new System.Drawing.Point(13, 565);
             this.btn_LoadRegion.Name = "btn_LoadRegion";
             this.btn_LoadRegion.Size = new System.Drawing.Size(133, 23);
             this.btn_LoadRegion.TabIndex = 2;
@@ -62,7 +66,7 @@ namespace NukeContracts.UI
             this.cbo_Region.FormattingEnabled = true;
             this.cbo_Region.Items.AddRange(new object[] {
             "Select Region"});
-            this.cbo_Region.Location = new System.Drawing.Point(13, 518);
+            this.cbo_Region.Location = new System.Drawing.Point(13, 538);
             this.cbo_Region.Name = "cbo_Region";
             this.cbo_Region.Size = new System.Drawing.Size(247, 21);
             this.cbo_Region.TabIndex = 3;
@@ -70,7 +74,7 @@ namespace NukeContracts.UI
             // lbl_Pages
             // 
             this.lbl_Pages.AutoSize = true;
-            this.lbl_Pages.Location = new System.Drawing.Point(152, 550);
+            this.lbl_Pages.Location = new System.Drawing.Point(152, 570);
             this.lbl_Pages.Name = "lbl_Pages";
             this.lbl_Pages.Size = new System.Drawing.Size(43, 13);
             this.lbl_Pages.TabIndex = 0;
@@ -78,7 +82,7 @@ namespace NukeContracts.UI
             // 
             // pb_APIBar
             // 
-            this.pb_APIBar.Location = new System.Drawing.Point(266, 519);
+            this.pb_APIBar.Location = new System.Drawing.Point(266, 539);
             this.pb_APIBar.Name = "pb_APIBar";
             this.pb_APIBar.Size = new System.Drawing.Size(996, 23);
             this.pb_APIBar.Step = 1;
@@ -88,7 +92,7 @@ namespace NukeContracts.UI
             // lbl_progress
             // 
             this.lbl_progress.BackColor = System.Drawing.Color.Transparent;
-            this.lbl_progress.Location = new System.Drawing.Point(266, 546);
+            this.lbl_progress.Location = new System.Drawing.Point(266, 566);
             this.lbl_progress.Name = "lbl_progress";
             this.lbl_progress.Size = new System.Drawing.Size(996, 12);
             this.lbl_progress.TabIndex = 5;
@@ -99,7 +103,7 @@ namespace NukeContracts.UI
             // pnl_ContractWindow
             // 
             this.pnl_ContractWindow.AutoScroll = true;
-            this.pnl_ContractWindow.Location = new System.Drawing.Point(13, 12);
+            this.pnl_ContractWindow.Location = new System.Drawing.Point(13, 32);
             this.pnl_ContractWindow.Name = "pnl_ContractWindow";
             this.pnl_ContractWindow.Size = new System.Drawing.Size(247, 500);
             this.pnl_ContractWindow.TabIndex = 16;
@@ -107,7 +111,7 @@ namespace NukeContracts.UI
             // btn_NextPage
             // 
             this.btn_NextPage.Enabled = false;
-            this.btn_NextPage.Location = new System.Drawing.Point(341, 546);
+            this.btn_NextPage.Location = new System.Drawing.Point(341, 566);
             this.btn_NextPage.Name = "btn_NextPage";
             this.btn_NextPage.Size = new System.Drawing.Size(84, 23);
             this.btn_NextPage.TabIndex = 17;
@@ -118,7 +122,7 @@ namespace NukeContracts.UI
             // btn_PrevPage
             // 
             this.btn_PrevPage.Enabled = false;
-            this.btn_PrevPage.Location = new System.Drawing.Point(251, 546);
+            this.btn_PrevPage.Location = new System.Drawing.Point(251, 566);
             this.btn_PrevPage.Name = "btn_PrevPage";
             this.btn_PrevPage.Size = new System.Drawing.Size(84, 23);
             this.btn_PrevPage.TabIndex = 18;
@@ -126,11 +130,34 @@ namespace NukeContracts.UI
             this.btn_PrevPage.UseVisualStyleBackColor = true;
             this.btn_PrevPage.Click += new System.EventHandler(this.Btn_PrevPage_Click);
             // 
+            // mu_Main
+            // 
+            this.mu_Main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mu_Main_Filters});
+            this.mu_Main.Location = new System.Drawing.Point(0, 0);
+            this.mu_Main.Name = "mu_Main";
+            this.mu_Main.Size = new System.Drawing.Size(1274, 24);
+            this.mu_Main.TabIndex = 19;
+            // 
+            // mu_Main_Filters
+            // 
+            this.mu_Main_Filters.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mu_Main_Filters_Abyssals});
+            this.mu_Main_Filters.Name = "mu_Main_Filters";
+            this.mu_Main_Filters.Size = new System.Drawing.Size(50, 20);
+            this.mu_Main_Filters.Text = "Filters";
+            // 
+            // mu_Main_Filters_Abyssals
+            // 
+            this.mu_Main_Filters_Abyssals.Name = "mu_Main_Filters_Abyssals";
+            this.mu_Main_Filters_Abyssals.Size = new System.Drawing.Size(180, 22);
+            this.mu_Main_Filters_Abyssals.Text = "Abyssals";
+            // 
             // ContractBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1274, 573);
+            this.ClientSize = new System.Drawing.Size(1274, 594);
             this.Controls.Add(this.btn_PrevPage);
             this.Controls.Add(this.btn_NextPage);
             this.Controls.Add(this.pnl_ContractWindow);
@@ -140,9 +167,13 @@ namespace NukeContracts.UI
             this.Controls.Add(this.cbo_Region);
             this.Controls.Add(this.btn_LoadRegion);
             this.Controls.Add(this.pnl_InfoPane);
+            this.Controls.Add(this.mu_Main);
+            this.MainMenuStrip = this.mu_Main;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ContractBrowser";
             this.Text = "Contract Browser";
+            this.mu_Main.ResumeLayout(false);
+            this.mu_Main.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,6 +189,9 @@ namespace NukeContracts.UI
         private System.Windows.Forms.Panel pnl_ContractWindow;
         private System.Windows.Forms.Button btn_NextPage;
         private System.Windows.Forms.Button btn_PrevPage;
+        private System.Windows.Forms.MenuStrip mu_Main;
+        private System.Windows.Forms.ToolStripMenuItem mu_Main_Filters;
+        private System.Windows.Forms.ToolStripMenuItem mu_Main_Filters_Abyssals;
     }
 }
 

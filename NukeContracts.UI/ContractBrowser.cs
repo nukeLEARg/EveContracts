@@ -77,8 +77,8 @@ namespace NukeContracts.UI
 
             #region Filter Building
 
-            var testMax = 150000000;
-            var testMin = 1000000;
+            var testMax = Int32.MaxValue;
+            var testMin = 0;
             Func<Contract, bool> filter = ((Contract c) => c.Price > testMin && c.Price < testMax);
 
             #endregion

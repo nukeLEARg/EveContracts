@@ -106,6 +106,12 @@
     <Compile Include="Controls\ItemWarning.Designer.cs">
       <DependentUpon>ItemWarning.cs</DependentUpon>
     </Compile>
+    <Compile Include="FIlterWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FIlterWindow.Designer.cs">
+      <DependentUpon>FIlterWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\ContractInfo.resx">
