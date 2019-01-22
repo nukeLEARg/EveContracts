@@ -11,18 +11,49 @@ namespace NukeContracts.Business
     {
         public List<ContractContents> contents { get; set; }
         public ContractCall info { get; set; }
-        
-        public Contract(ContractCall call)
+        public ESIStructure station { get; set; }
+        public List<TypeCall> typeInfo { get; set; } = new List<TypeCall>();
+        public int index { get; set; }
+
+        public Contract(ContractCall call,int i)
         {
             info = call;
-            contents = buildContract(call);
+            index = i;
         }
 
-        private List<ContractContents> buildContract(ContractCall call)
+        public async void buildContract()
+        {
+            await resolveContents(info);
+            await resolveStructure(info);
+            await resolveTypes(contents);
+        }
+        
+
+        private async Task resolveContents(ContractCall call)
         {
             NukeESI.ESIClass esi = new ESIClass();
-            List<ContractContents> contents = esi.pullContract(call.contract_id);
-            return contents;
+            List<ContractContents> contents = await esi.pullContract(call.contract_id).ConfigureAwait(false);
+            this.contents = contents;
+        }
+
+        private async Task resolveStructure(ContractCall call)
+        {
+            NukeESI.ESIClass esi = new ESIClass();
+            ESIStructure stat = await esi.pullStructure(call.start_location_id).ConfigureAwait(false);
+            station = stat;
+        }
+
+        private async Task resolveTypes(List<ContractContents> items)
+        {
+            ESIClass esi = new ESIClass();
+            await Task.Run(() =>
+            {
+                foreach (ContractContents item in items)
+                {
+                    TypeCall info = esi.pullTypeInfo(item.type_id);
+                    typeInfo.Add(info);
+                }
+            });
         }
     }
 }

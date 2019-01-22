@@ -10,10 +10,10 @@ namespace NukeESI
     {
         public bool is_blueprint_copy { get; set; }
         public bool is_included { get; set; }
-        public int item_id { get; set; }
+        public long item_id { get; set; }
         public int material_efficiency { get; set; }
         public int quantity { get; set; }
-        public int record_id { get; set; }
+        public long record_id { get; set; }
         public int runs { get; set; }
         public int time_efficiency { get; set; }
         public int type_id { get; set; }
@@ -21,7 +21,7 @@ namespace NukeESI
         public ContractContents()
         {
         }
-
+        
         public override string ToString()
         {
             return "is_blueprint_copy:" + is_blueprint_copy + " is_included:" + is_included + " item_id:" + item_id + " material_efficiency:" + material_efficiency + " quantity:" + quantity +
